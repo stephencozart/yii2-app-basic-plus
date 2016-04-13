@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "94f8543ce40849ce6957714146ce7afa",
-    "content-hash": "e9d0e48b461b36bbeca3e13ca33b64f4",
+    "hash": "b32627cb51ce0a826bae929c51cdbe8d",
+    "content-hash": "17d77ab409147863f1e4216e0608c134",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -298,6 +298,47 @@
                 "html"
             ],
             "time": "2015-08-05 01:03:42"
+        },
+        {
+            "name": "richweber/yii2-recaptcha",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RichWeber/yii2-recaptcha.git",
+                "reference": "6e2465b0e351222231a88a4d09b85d86b18c6690"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RichWeber/yii2-recaptcha/zipball/6e2465b0e351222231a88a4d09b85d86b18c6690",
+                "reference": "6e2465b0e351222231a88a4d09b85d86b18c6690",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "richweber\\recaptcha\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "RichWeber",
+                    "email": "rbagatyi@gmail.com"
+                }
+            ],
+            "description": "Yii 2 Framework extension for Google reCAPTCHA",
+            "keywords": [
+                "google",
+                "recaptcha",
+                "yii2"
+            ],
+            "time": "2014-12-13 20:32:08"
         },
         {
             "name": "swiftmailer/swiftmailer",

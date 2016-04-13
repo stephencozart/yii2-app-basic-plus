@@ -48,6 +48,12 @@ $config = [
                 '<controller:\w+>/<action:\w+>'=> '<controller>/<action>'
             ],
         ],
+        'recaptcha'=>[
+            'class' => 'richweber\recaptcha\ReCaptcha',
+            'siteKey' => '',
+            'secretKey' => '',
+            'errorMessage' => 'Are you robot?',
+        ]
     ],
     'params' => $params,
 ];
