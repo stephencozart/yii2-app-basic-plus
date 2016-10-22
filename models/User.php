@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveQuery;
 use Yii;
 use yii\web\IdentityInterface;
 
@@ -20,9 +19,12 @@ use yii\web\IdentityInterface;
  * @property integer $status_id
  * @property string $created_on
  * @property string $updated_on
+ * @property string $nickname
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    public $new_password;
+
     /**
      * @inheritdoc
      */
@@ -41,7 +43,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['created_on', 'updated_on'], 'safe'],
             [['first_name', 'last_name', 'email', 'auth_key'], 'string', 'max' => 255],
             [['password', 'activation_code', 'reset_code'], 'string', 'max' => 64],
-            [['email'], 'unique', 'targetAttribute' => ['email'], 'message' => 'That email address has already been used.']
+            [['email'], 'unique', 'targetAttribute' => ['email'], 'message' => 'That email address has already been used.'],
         ];
     }
 
@@ -64,9 +66,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function find()
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    function beforeSave($insert)
     {
-        return new ActiveQuery(get_called_class());
+        if ($insert === true && $this->password != null) {
+            $this->password = Yii::$app->security->generatePasswordHash($this->password);
+        } else if (count($this->new_password) > 0 && !empty($this->new_password)) {
+            $this->password = Yii::$app->security->generatePasswordHash($this->new_password);
+        }
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -83,18 +94,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return self::find()->where(['auth_key'=>$token])->one();
+        return self::find()->where(['auth_key' => $token])->one();
     }
 
     /**
-     * Finds user by username
-     *
-     * @param  string      $username
-     * @return static|null
+     * @param $email
+     * @return array|null|\yii\db\ActiveRecord
      */
-    public static function findByUsername($username)
+    public static function findByEmail($email)
     {
-        return self::find()->where(['email'=>$username])->one();
+        return self::find()->where(['email' => $email])->one();
     }
 
     /**
@@ -129,7 +138,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivated()
+    {
+        return ($this->auth_key === null);
     }
 
 }
