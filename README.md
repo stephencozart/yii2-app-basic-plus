@@ -70,3 +70,21 @@ return [
 - Yii won't create the database for you, this has to be done manually before you can access it.
 - Check and edit the other files in the `config/` directory to customize your application as required.
 - Refer to the README in the `tests` directory for information specific to basic application tests.
+
+Frontend Assets
+============================
+
+NPM
+---
+NPM is the package manager for frontend assets.  To install the packages `cd frontend` and then `npm install`
+
+Gulp
+----
+Gulp handles compiling the frontend assets into a file that can be loaded by Yii.  The following options are available:
+
+- `gulp` will compile the scripts and styles
+- `gulp --prod` will compile scripts and styles and minify them
+- `gulp scripts` will compile just the scripts
+- `gulp styles` will compile just the styles
+- `gulp watch` will watch and compile the scripts and styles on changes
+
