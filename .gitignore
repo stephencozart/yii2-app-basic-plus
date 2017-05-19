@@ -29,3 +29,5 @@ phpunit.phar
 /config/db.php
 
 /config/constants.php
+
+/web/dist
