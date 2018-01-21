@@ -1,18 +1,33 @@
 <?php
 
-/* @var $this yii\web\View */
+/* @var $this \yii\web\View */
 
 $this->title = 'My Yii Application';
 ?>
+
+<div class="hero cover">
+    <div class="hero-contents">
+        <div class="hero-content left">
+            <img src="/dist/frontend/images/yii.png" />
+        </div>
+
+        <div class="hero-content right">
+            <h1>Congratulations!</h1>
+            <div class="lead">
+                You have successfully created your Yii-powered application.
+            </div>
+            <div class="hero-cta">
+                <a class="btn btn-primary btn-lg" href="#">Call to Action</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
 
     <div class="body-content">
 

@@ -1,0 +1,40 @@
+{
+  "name": "yii2-app-basic-plus",
+  "version": "1.0.0",
+  "description": "Yii 2 Basic Plus Project Template ============================",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephencozart/yii2-app-basic-plus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephencozart/yii2-app-basic-plus/issues"
+  },
+  "homepage": "https://github.com/stephencozart/yii2-app-basic-plus#readme",
+  "devDependencies": {
+    "@fortawesome/fontawesome": "^1.1.2",
+    "animate.css": "^3.5.2",
+    "axios": "^0.17.1",
+    "bootstrap": "^4.0.0",
+    "browser-sync": "^2.23.5",
+    "browser-sync-webpack-plugin": "^1.2.0",
+    "es6-promise": "^4.2.2",
+    "jquery": "^3.3.1",
+    "laravel-mix": "^1.7.2",
+    "lodash": "^4.17.4",
+    "popper.js": "^1.12.9",
+    "smoothscroll-polyfill": "^0.4.0"
+  }
+}

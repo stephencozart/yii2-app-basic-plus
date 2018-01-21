@@ -1,0 +1,23 @@
+.navbar {
+  color: #731982;
+  transition: background-color 250ms ease-in-out;
+
+  .navbar-brand {
+    color: inherit;
+  }
+
+  .nav-link {
+    color: inherit;
+  }
+
+  .nav-link {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+.scrolled {
+  .navbar {
+    color: #ffffff;
+    background-color: rgba(145, 39, 140, 0.92);
+  }
+}

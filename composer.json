@@ -15,9 +15,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": ">=2.0.5",
-        "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
+        "yiisoft/yii2": ">=2.0.13",
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
         "richweber/yii2-recaptcha": "^1.0"
     },
     "require-dev": {
@@ -46,10 +45,6 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
         }
     }
 }

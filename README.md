@@ -41,13 +41,15 @@ The minimum requirement by this project template that your Web server supports P
 
 INSTALLATION
 ------------
-
+```
 git clone git@github.com:stephencozart/yii2-app-basic-plus.git your-project-folder
+
 composer install
+
 composer run-script post-create-project-cmd
 
+```
 be sure to delete: your-project-folder/.git
-
 
 CONFIGURATION
 -------------
