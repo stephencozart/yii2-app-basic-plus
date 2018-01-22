@@ -1,1 +1,51 @@
-@import "~animate.css";
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "vendor/animate";
+@import "components/sidebar";
+@import "components/header";
+@import "components/login";
+
+* {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-kerning: auto;
+  font-kerning: auto;
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+}
+.btn-rounded {
+  border-radius: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  align-items: stretch;
+
+  .main {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    transition: margin-left 250ms ease-in-out;
+    transition-delay: 100ms;
+
+    .content {
+      padding: 3rem;
+    }
+  }
+}
+.app-route-transition-leave-to {
+  position: absolute;
+}
+.router-outlet {
+  &.app-route-transition-enter-to {
+    animation-delay: 350ms;
+  }
+  animation-duration: 200ms;
+}

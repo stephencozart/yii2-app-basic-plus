@@ -33,7 +33,8 @@ mix.js('build/frontend/src/js/app.js', 'web/dist/'+prefix+'app.js')
     .copy('build/frontend/src/images', 'web/dist/frontend/images');
 
 mix.js('build/backend/src/js/backend.js', 'web/dist/'+prefix+'backend.js')
-    .sass('build/backend/src/sass/backend.scss', 'web/dist/'+prefix+'backend.css');
+    .sass('build/backend/src/sass/backend.scss', 'web/dist/'+prefix+'backend.css')
+    .copy('build/backend/src/images', 'web/dist/backend/images');
 
 mix.browserSync({
     proxy: '127.0.0.1:8000',
@@ -41,7 +42,8 @@ mix.browserSync({
         'web/dist/*.css',
         'web/dist/*.js',
         'views/**/*.php',
-        'views/**/**/*.php'
+        'views/**/**/*.php',
+        'modules/admin/views/**/*.php'
     ]
 });
 

@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Url;
+?>
 <nav class="navbar navbar-expand-md fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#"><?= Yii::$app->name ?></a>
@@ -7,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbar-main">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="<?= Url::to(['/user/register']) ?>">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sign In <i class="fas fa-long-arrow-alt-right"></i></a>

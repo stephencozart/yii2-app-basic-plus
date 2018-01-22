@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$bodyClass = Yii::$app->controller->action->uniqueId === 'site/index' ? 'home' : 'non-home';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,10 +23,10 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
 </head>
-<body>
+<body class="<?= $bodyClass ?>">
 <?php $this->beginBody() ?>
 
-<?= $this->render('//partials/header') ?>
+<?= $this->render('//partials/navbar') ?>
 
 <?= Breadcrumbs::widget([
     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

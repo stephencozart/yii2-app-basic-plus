@@ -25,6 +25,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $new_password;
 
+    public function fields()
+    {
+        return [
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'avatar',
+            'status_id',
+            'created_on',
+            'updated_on'
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -77,6 +91,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         } else if (count($this->new_password) > 0 && !empty($this->new_password)) {
             $this->password = Yii::$app->security->generatePasswordHash($this->new_password);
         }
+
+        $this->updated_on = date('Y-m-d H:i:s');
+
         return parent::beforeSave($insert);
     }
 
@@ -148,5 +165,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return ($this->auth_key === null);
     }
+
+    public function getAvatar($s=50, $d='mm')
+    {
+        $url = 'https://www.gravatar.com/avatar/';
+        $url .= md5( strtolower( trim( $this->email ) ) );
+        $url .= "?s=$s&d=$d";
+
+        return $url;
+    }
+
 
 }

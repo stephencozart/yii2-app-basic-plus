@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 ?>
 
-<div class="site-login">
+<section class="section login">
     <div class="container">
 
         <div class="row">
@@ -19,23 +19,21 @@ $this->title = 'Login';
 
                 <?php Html::showFlashMessages(); ?>
 
-                <p>Please fill out the following fields to login:</p>
-
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?echo $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-                <?echo $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?echo $form->field($model, 'remember_me')->checkbox([
+                <?= $form->field($model, 'remember_me')->checkbox([
                     'template' => "<div>{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
                 ]) ?>
 
-                <?echo Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
 
     </div>
-</div>
+</section>

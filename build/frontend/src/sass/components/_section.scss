@@ -3,4 +3,12 @@
   @media(min-width: 1200px) {
     padding: 50px 0;
   }
+
+  .section-title {
+    margin-bottom: 2rem;
+  }
+
+  &.cover {
+    min-height: 100vh;
+  }
 }

@@ -1,0 +1,13 @@
+$danger: rgba(177, 48, 42, 1);
+
+$purple: rgba(58,36,88,1);
+$purple-opaque: rgba(56, 36, 88, .9);
+
+$theme-colors: (
+        "primary": rgba(145, 39, 140, 1),
+        "danger": $danger
+);
+$body-bg: #f9f9f9;
+$body-color: #4a4a4a;
+
+$enable-rounded: false;

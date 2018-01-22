@@ -1,0 +1,21 @@
+.form-control {
+  border-radius: 2px;
+  &:focus {
+    outline: none;
+    border-color: $input-focus-color;
+    box-shadow: 0 0 0 1px $input-focus-color;
+  }
+}
+
+.help-block-error {
+  color: $danger;
+}
+.form-control:invalid {
+  border-color: $danger;
+}
+.has-error {
+  .form-control {
+    border-color: $danger;
+    box-shadow: 0 0 0 1px $danger;
+  }
+}

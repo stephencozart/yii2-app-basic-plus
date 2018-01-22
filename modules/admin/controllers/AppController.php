@@ -9,19 +9,23 @@
 namespace app\modules\admin\controllers;
 
 
+use app\models\forms\UserForm;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
-use app\models\LoginForm;
 use Yii;
+use yii\web\Response;
 
-class DashboardController extends Controller
+class AppController extends Controller
 {
+
+
 	public function behaviors()
 	{
 		return [
 			'access' => [
 				'class' => AccessControl::className(),
-				'only' => ['login', 'logout', 'index'],
+				'only' => ['login', 'logout', 'index', 'error'],
 				'rules' => [
 					[
 						'allow' => true,
@@ -33,6 +37,11 @@ class DashboardController extends Controller
 						'actions' => ['logout'],
 						'roles' => ['@'],
 					],
+                    [
+                        'allow' => true,
+                        'actions' => ['error','test'],
+                        'roles' => ['@','?']
+                    ],
 					[
 						'allow' => true,
 						'actions' => ['index'],
@@ -43,16 +52,34 @@ class DashboardController extends Controller
 		];
 	}
 
-	public function actionLogin()
+	public function actionTest()
+    {
+        VarDumper::dump(__METHOD__, 10, true);
+    }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    public function actionLogin()
 	{
 		if (!Yii::$app->user->isGuest) {
-			return $this->goHome();
+			return $this->redirect(['/admin/app']);
 		}
 
-		$model = new LoginForm();
+		$model = new UserForm([
+		    'scenario' => UserForm::SCENARIO_LOGIN
+        ]);
+
 		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			return $this->goBack();
+			return $this->goBack(['/admin/app']);
 		}
+
 		return $this->render('login', [
 			'model' => $model,
 		]);
@@ -62,6 +89,15 @@ class DashboardController extends Controller
 	{
 		Yii::$app->user->logout();
 
+		if (Yii::$app->request->isAjax) {
+
+		    Yii::$app->response->format = Response::FORMAT_JSON;
+
+		    return [
+		        'status' => 'ok'
+            ];
+        }
+
 		return $this->redirect(['login']);
 	}
 
@@ -69,4 +105,5 @@ class DashboardController extends Controller
 	{
 		return $this->render('index');
 	}
+
 }

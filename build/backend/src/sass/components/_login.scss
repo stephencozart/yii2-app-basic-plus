@@ -1,0 +1,69 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  .login-content {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #ffffff;
+    min-width: 400px;
+    max-width: 100%;
+
+    @media(min-width: 1024px) {
+      flex-direction: row;
+      width: 800px;
+      box-shadow: 0 0 35px 0 #cccccc;
+    }
+    .content {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      &.primary {
+        @media(min-width: 1024px) {
+          padding: 4rem 2rem;
+        }
+      }
+      h3 {
+        margin-bottom: 2rem;
+      }
+      &.secondary {
+        padding: 0;
+        h3 {
+          color: #ffffff;
+        }
+      }
+    }
+    .actions {
+      margin-top: 2rem;
+      text-align: right;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+    .clip-box {
+      background-color: $purple-opaque;
+      background-image: url("/dist/backend/images/skyscrapers.jpg");
+      background-blend-mode: overlay;
+      padding: 2rem;
+
+      @media(min-width: 1024px) {
+        clip-path: polygon(0 0, 100% 100%, 100% 0);
+        position: absolute;
+        left: -100px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        text-align: right;
+      }
+
+
+    }
+
+  }
+}

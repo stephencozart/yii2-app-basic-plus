@@ -1,0 +1,18 @@
+$navbar-bg-color: rgba(145, 39, 140, 0.92);
+$navbar-color: rgba(145, 39, 140, 1);
+
+$hero-bg: #eeeeee;
+$hero-text-color: inherit;
+
+$footer-bg-color: #f9f9f9;
+
+$input-focus-color: $navbar-color;
+
+$danger: rgba(177, 48, 42, 1);
+
+$theme-colors: (
+  "primary": rgba(145, 39, 140, 1),
+  "danger": $danger
+);
+
+$body-color: #4a4a4a;

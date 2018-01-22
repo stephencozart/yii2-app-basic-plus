@@ -25,6 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => '/user/login'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -51,6 +52,9 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+                'admin/<controller:\w+>/<id:\d+>' => 'admin/<controller>/view',
+                'admin/<controller:\w+>/<action:\w+>/<id:\d+>'=> 'admin/<controller>/<action>',
+                'admin/<controller:\w+>/<action:\w+>'=> 'admin/<controller>/<action>',
                 '<controller:\w+>/<id:\d+>'=> '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=> '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=> '<controller>/<action>'

@@ -28,6 +28,7 @@
     "animate.css": "^3.5.2",
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
+    "bootstrap-vue": "^1.4.1",
     "browser-sync": "^2.23.5",
     "browser-sync-webpack-plugin": "^1.2.0",
     "es6-promise": "^4.2.2",
@@ -35,6 +36,9 @@
     "laravel-mix": "^1.7.2",
     "lodash": "^4.17.4",
     "popper.js": "^1.12.9",
-    "smoothscroll-polyfill": "^0.4.0"
+    "smoothscroll-polyfill": "^0.4.0",
+    "vue": "^2.5.13",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   }
 }

@@ -1,5 +1,4 @@
 <?php
-use app\models\forms\RegisterForm;
 use yii\bootstrap\ActiveForm;
 use app\local\Html;
 
@@ -7,12 +6,12 @@ use app\local\Html;
 /* @var \yii\web\View $this */
 $this->title = "Register";
 
-/** @var RegisterForm $model */
+/** @var \app\models\forms\UserForm $model */
 ?>
-<div class="register">
+<section class="section register">
     <div class="container">
-        <div class="col-sm-8">
-            <h1>Register</h1>
+        <div class="col-8">
+            <h1 class="section-title">Register</h1>
 
             <?php Html::showFlashMessages(); ?>
 
@@ -40,9 +39,9 @@ $this->title = "Register";
                 </div>
             </div>
 
-            <?php echo Html::submitButton('Submit', ['class' => 'btn btn-primary']); ?>
+            <?php echo Html::submitButton('Register', ['class' => 'btn btn-primary btn-lg']); ?>
 
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
+</section>
