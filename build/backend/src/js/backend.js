@@ -30,7 +30,7 @@ if (document.getElementById('app')) {
         methods: {
             toggleSidebar() {
                 console.log('foo');
-                document.body.classList.toggle('sidebar-closed');
+                document.body.classList.toggle('sidebar-open');
             }
         }
     }).$mount('#app');

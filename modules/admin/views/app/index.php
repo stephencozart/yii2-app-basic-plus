@@ -1,5 +1,5 @@
 <div id="app" class="app-wrapper">
-    <side-bar></side-bar>
+    <side-bar @toggle="toggleSidebar"></side-bar>
     <div class="main">
         <app-header @toggle="toggleSidebar"></app-header>
         <div class="content">
