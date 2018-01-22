@@ -15,7 +15,7 @@ $this->title = 'Login';
 
         <div class="row">
             <div class="col-sm-6">
-                <h1><?= Html::encode($this->title) ?></h1>
+                <h1 class="section-title"><?= Html::encode($this->title) ?></h1>
 
                 <?php Html::showFlashMessages(); ?>
 

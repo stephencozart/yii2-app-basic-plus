@@ -13,7 +13,7 @@ use yii\helpers\Url;
                     <a class="nav-link" href="<?= Url::to(['/user/register']) ?>">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign In <i class="fas fa-long-arrow-alt-right"></i></a>
+                    <a class="nav-link" href="<?= Url::to(['/user/login']) ?>">Sign In <i class="fas fa-long-arrow-alt-right"></i></a>
                 </li>
 
             </ul>
