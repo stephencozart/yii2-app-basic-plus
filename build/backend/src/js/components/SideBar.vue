@@ -1,5 +1,6 @@
 <template>
     <div class="sidebar">
+
         <div class="sidebar-avatar">
             <img :src="user.avatar" />
             <div class="user" @click.stop="showMenu = !(showMenu === true)">
@@ -27,6 +28,9 @@
         <div class="sidebar-nav">
             <router-link to="/">Dashboard </router-link>
             <router-link to="/users">Users</router-link>
+        </div>
+        <div class="sidebar-overlay" @click="$emit('toggle')">
+            <button class="sidebar-close">X</button>
         </div>
     </div>
 </template>
