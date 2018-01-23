@@ -7,9 +7,15 @@ import Store from './store';
 // components
 import SideBar from './components/SideBar';
 import Header from './components/Header';
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser } from '@fortawesome/fontawesome-free-solid';
+
+fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser);
 
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 // 4. Create and mount the root instance.
 // Make sure to inject the router with the router option to make the

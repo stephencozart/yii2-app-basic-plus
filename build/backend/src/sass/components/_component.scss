@@ -1,0 +1,31 @@
+.component {
+  .component-bread-crumbs {
+    margin-bottom: 1rem;
+  }
+  .component-header {
+    display: flex;
+    margin-bottom: 1.5rem;
+
+    .component-header-main-group {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+    }
+
+    .component-header-alt-group {
+
+    }
+  }
+  .component-title {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 400;
+    opacity: .7;
+  }
+  .component-footer {
+    display: flex;
+    .result-pager {
+      margin-left: auto;
+    }
+  }
+}

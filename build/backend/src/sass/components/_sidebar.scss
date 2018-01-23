@@ -82,10 +82,18 @@
     a {
       display: block;
       padding: .4rem .8rem;
+      transition: background-color 200ms ease-in-out;
       &:focus, &:hover, &.router-link-exact-active {
         outline: none;
         background-color: rgba(255,255,255,.1);
         text-decoration: none;
+        svg {
+          opacity: .9;
+        }
+      }
+      svg {
+        opacity: .7;
+        transition: opacity 200ms ease-in-out;
       }
     }
   }

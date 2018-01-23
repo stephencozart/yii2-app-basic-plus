@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,500i,700');
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 @import "vendor/animate";
 @import "components/sidebar";
 @import "components/header";
 @import "components/login";
+@import "tables";
+@import "utilities";
+@import "components/component";
+@import "components/pager";
 
 * {
   text-rendering: optimizeLegibility;
@@ -17,6 +22,7 @@ html {
 }
 body {
   min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
 }
 .btn-rounded {
   border-radius: 5rem;
@@ -38,7 +44,7 @@ body {
     .content {
       padding: 1.5rem 2rem;
       @media(min-width: 1024px) {
-        padding: 3rem;
+        padding: 2rem;
       }
     }
   }
