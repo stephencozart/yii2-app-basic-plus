@@ -11,12 +11,14 @@ use yii\base\Model;
  * @property string $email
  * @property string $password
  * @property string $password_confirmation
+ * @property string $activation_code
  * @property User $user
  */
 class UserForm extends Model {
     const SCENARIO_REGISTER = 'register';
     const SCENARIO_LOGIN = 'login';
     const SCENARIO_UPDATE = 'update';
+    const SCENARIO_ACTIVATE = 'activate';
 
     public $first_name;
     public $last_name;
@@ -50,7 +52,19 @@ class UserForm extends Model {
         return [
             static::SCENARIO_REGISTER => ['email', 'password', 'password_confirmation', 'first_name', 'last_name'],
             static::SCENARIO_LOGIN => ['email', 'password'],
+            static::SCENARIO_ACTIVATE => ['password','password_confirmation','email','verifyActivationCode']
         ];
+    }
+
+    public function verifyActivationCode()
+    {
+        $user = User::find()->where(['email'=>$this->email, 'activation_code' => $this->activation_code])->one();
+
+        if ($user === null) {
+
+            $this->addError('password', 'Invalid activation code.');
+
+        }
     }
 
     /**
@@ -97,6 +111,18 @@ class UserForm extends Model {
                 return \Yii::$app->user->login($this->getUser(), $this->remember_me ? 3600*24*30 : 0);
             }
         }
+        return false;
+    }
+
+    public function activate()
+    {
+        if ($this->validate()) {
+            return User::updateAll(['activation_code' => null,
+                ['password'=>\Yii::$app->security->generatePasswordHash($this->password)]],
+                ['activation_code' => $this->activation_code, 'email' => $this->email]
+            );
+        }
+
         return false;
     }
 

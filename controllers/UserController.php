@@ -41,23 +41,6 @@ class UserController extends Controller {
         return $this->render('register', ['model' => $model]);
     }
 
-    /**
-     * @param $id
-     * @param $key
-     */
-    public function actionActivate($id, $key)
-    {
-        /** @var User $model */
-        $model = User::find()->where(['id' => $id])->andWhere(['activation_code' => $key])->one();
-
-        if ($model === null) {
-
-            throw new NotFoundHttpException();
-
-        }
-
-        return $this->render('activate', ['model' => $model]);
-    }
 
     /**
      * @return string

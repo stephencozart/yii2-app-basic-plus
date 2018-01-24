@@ -10,6 +10,7 @@ namespace app\modules\admin\controllers;
 
 
 use app\models\forms\UserForm;
+use app\models\User;
 use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -25,11 +26,11 @@ class AppController extends Controller
 		return [
 			'access' => [
 				'class' => AccessControl::className(),
-				'only' => ['login', 'logout', 'index', 'error'],
+				'only' => ['login', 'logout', 'index', 'error', 'activate'],
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['login'],
+						'actions' => ['login','activate'],
 						'roles' => ['?'],
 					],
 					[
@@ -52,9 +53,41 @@ class AppController extends Controller
 		];
 	}
 
-	public function actionTest()
+    /**
+     * @param $id
+     * @param $key
+     * @return string
+     */
+    public function actionActivate($id, $key)
     {
-        VarDumper::dump(__METHOD__, 10, true);
+        /** @var User $user */
+        $user = User::find()->where(['id' => $id])->andWhere(['activation_code' => $key])->one();
+
+        if ($user === null) {
+
+            throw new NotFoundHttpException();
+
+        }
+
+        $model = new UserForm(['scenario' => UserForm::SCENARIO_ACTIVATE]);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->activation_code = $user->activation_code;
+
+            $model->email = $user->email;
+
+            if ($model->activate()) {
+
+                Yii::$app->session->setFlash('success', 'Your user account is now activated.  You may now sign in.');
+
+                return $this->redirect(['login']);
+
+            }
+        }
+
+
+        return $this->render('activate', ['model' => $model]);
     }
 
     public function actions()
