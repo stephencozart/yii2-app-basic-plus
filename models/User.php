@@ -86,6 +86,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     function beforeSave($insert)
     {
+        if ($insert) {
+            $this->activation_code = Yii::$app->security->generateRandomString();
+        }
         if ($insert === true && $this->password != null) {
             $this->password = Yii::$app->security->generatePasswordHash($this->password);
         } else if (count($this->new_password) > 0 && !empty($this->new_password)) {

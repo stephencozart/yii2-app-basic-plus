@@ -9,6 +9,8 @@
 namespace app\modules\admin;
 
 
+use app\models\User;
+use yii\base\Event;
 use yii\helpers\Json;
 use yii\web\View;
 
@@ -33,6 +35,14 @@ class Module extends \yii\base\Module
             \Yii::$app->view->registerJs("window.app = $js;", View::POS_HEAD);
 
         }
+
+        Event::on(User::className(), User::EVENT_AFTER_INSERT, function(Event $event) {
+            \Yii::$app->mailer->compose('user/activate', ['user' => $event->sender])
+                ->setFrom(\Yii::$app->params['reply_to'])
+                ->setTo($event->sender->email)
+                ->setSubject('Activate Email')
+                ->send();
+        });
 
         parent::init();
     }

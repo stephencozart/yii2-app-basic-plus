@@ -1,21 +1,37 @@
 require('../../../bootstrap');
 import axios from 'axios';
 import Vue from 'vue';
+import VeeValidate from 'vee-validate';
 import Router from './router';
 import Store from './store';
-
+Vue.use(VeeValidate, {
+    locale: 'en',
+    dictionary: {
+        en: {
+            attributes: {
+                first_name: 'First Name',
+                last_name: 'Last Name'
+            }
+        },
+    },
+    validity: true
+});
 // components
 import SideBar from './components/SideBar';
 import Header from './components/Header';
+import Checkbox from './components/Checkbox';
+import Notifications from './components/Notifications';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser } from '@fortawesome/fontawesome-free-solid';
+import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle, faExclamationTriangle, faTachometerAlt } from '@fortawesome/fontawesome-free-solid';
 
-fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser);
+fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle, faExclamationTriangle, faTachometerAlt);
 
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('notifications', Notifications);
+Vue.component(Checkbox);
 
 // 4. Create and mount the root instance.
 // Make sure to inject the router with the router option to make the

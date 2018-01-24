@@ -1,4 +1,5 @@
 <div id="app" class="app-wrapper">
+    <notifications></notifications>
     <side-bar @toggle="toggleSidebar"></side-bar>
     <div class="main">
         <app-header @toggle="toggleSidebar"></app-header>
@@ -11,7 +12,5 @@
                 <router-view class="router-outlet"></router-view>
             </transition>
         </div>
-
     </div>
-
 </div>

@@ -5,8 +5,11 @@ $purple-opaque: rgba(56, 36, 88, .9);
 
 $dark-purple: rgb(41, 9, 46);
 
+$primary: rgba(145, 39, 140, 1);
+
+
 $theme-colors: (
-        "primary": rgba(145, 39, 140, 1),
+        "primary": $primary,
         "danger": $danger
 );
 $body-bg: #f9f9f9;

@@ -1,0 +1,66 @@
+.notification-center {
+  position: fixed;
+  right: 2rem;
+  top: 5rem;
+  z-index: 2;
+
+  .notification {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 300px;
+
+    box-shadow: 0 0 5px 0 #cccccc;
+    background-color: #ffffff;
+
+    border-radius: 5px;
+    overflow: hidden;
+
+    &+.notification {
+      margin-top: .7rem;
+    }
+
+    .icon {
+      padding: 1rem 1.2rem;
+      font-size: 1.3rem;
+      width: 65px;
+      text-align: center;
+    }
+    &.success {
+      .icon {
+        background-color: #76e035;
+        svg {
+          path {
+            fill: rgba(255, 255, 255, .9)
+          }
+        }
+      }
+    }
+    &.error {
+      .icon {
+        background-color: $danger;
+        svg {
+          path {
+            fill: rgba(255, 255, 255, .9)
+          }
+        }
+      }
+    }
+    .close {
+      position: absolute;
+      font-size: 1rem;
+      right: .5rem;
+      top: .5rem;
+      svg {
+        path {
+          fill: rgba(0, 0, 0, .5)
+        }
+      }
+    }
+    .message {
+      padding: 0 2rem 0 1rem;
+      font-size: .85rem;
+      line-height: normal;
+    }
+  }
+}

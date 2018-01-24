@@ -1,0 +1,29 @@
+input:invalid {
+  border-color: $danger;
+  box-shadow: 0 0 0 1px $danger;
+  +.help-block {
+    color: $danger;
+    font-size: .85rem;
+  }
+}
+.has-error {
+  .help-block-error {
+    color: $danger;
+    font-size: .85rem;
+  }
+  .form-control {
+    border-color: $danger;
+    box-shadow: 0 0 0 1px $danger;
+  }
+}
+.form-group {
+  label {
+    text-transform: uppercase;
+    font-size: .85rem;
+  }
+}
+.form-control:focus {
+  outline: none;
+  border-color: $purple;
+  box-shadow: 0 0 0 1px $purple;
+}

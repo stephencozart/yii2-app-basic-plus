@@ -28,4 +28,14 @@
       margin-left: auto;
     }
   }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .btn {
+      margin-left: 1rem;
+    }
+  }
+
 }

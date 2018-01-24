@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="sidebar-nav">
-            <router-link to="/">Dashboard </router-link>
+            <router-link to="/"><font-awesome-icon icon="tachometer-alt"></font-awesome-icon> Dashboard </router-link>
             <router-link to="/users"><font-awesome-icon icon="users"></font-awesome-icon> Users</router-link>
         </div>
         <div class="sidebar-overlay" @click="$emit('toggle')">

@@ -4,6 +4,7 @@ use app\models\forms\PasswordResetForm;
 use app\models\forms\UserForm;
 use app\models\User;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class UserController extends Controller {
 
@@ -31,15 +32,8 @@ class UserController extends Controller {
         $model->scenario = UserForm::SCENARIO_REGISTER;
 
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
-            // send the activation email to the user
-            \Yii::$app->mailer->compose('user/activate', ['user' => $model->getUser()])
-                ->setFrom(\Yii::$app->params['reply_to'])
-                ->setTo($model->getUser()->email)
-                ->setSubject('Activate Email')
-                ->send();
 
-            \Yii::$app->session->addFlash('success', 'Your account has been created.  Please activate your account with ' .
-                'the link sent to your email before logging in.');
+            \Yii::$app->session->addFlash('success', 'Your account has been created.');
 
             return $this->redirect(['user/login']);
         }
@@ -50,21 +44,19 @@ class UserController extends Controller {
     /**
      * @param $id
      * @param $key
-     * @return \yii\web\Response
      */
     public function actionActivate($id, $key)
     {
-        $model = User::find()->where(['id' => $id])->andWhere(['auth_key' => $key])->one();
+        /** @var User $model */
+        $model = User::find()->where(['id' => $id])->andWhere(['activation_code' => $key])->one();
 
-        if ($model != null) {
-            $model->auth_key = null;
-            $model->save();
-            \Yii::$app->session->addFlash('success', 'Your account has been activated.');
-        } else {
-            \Yii::$app->session->addFlash('error', 'Your account could not be activated!');
+        if ($model === null) {
+
+            throw new NotFoundHttpException();
+
         }
 
-        return $this->redirect(['user/login']);
+        return $this->render('activate', ['model' => $model]);
     }
 
     /**
