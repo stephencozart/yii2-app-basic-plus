@@ -4,6 +4,10 @@ import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 import Router from './router';
 import Store from './store';
+_.each(document.vuePlugins, (plugin) => {
+    let c = plugin.component();
+    Vue.component(c.name, c);
+});
 Vue.use(VeeValidate, {
     locale: 'en',
     dictionary: {
@@ -32,6 +36,7 @@ Vue.component('app-header', Header);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('notifications', Notifications);
 Vue.component(Checkbox);
+
 
 // 4. Create and mount the root instance.
 // Make sure to inject the router with the router option to make the

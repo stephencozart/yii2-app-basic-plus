@@ -9,19 +9,32 @@
 namespace app\modules\admin\controllers;
 
 
+use app\interfaces\SearchServiceInterface;
 use app\models\forms\UserForm;
 use app\models\User;
+use yii\base\Module;
 use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
+use yii\rest\Serializer;
 use yii\web\Controller;
 use Yii;
 use yii\web\Response;
 
 class AppController extends Controller
 {
+    /**
+     * @var SearchServiceInterface
+     */
+    protected $searchService;
 
+    public function __construct($id, Module $module, SearchServiceInterface $searchService, array $config = [])
+    {
+        $this->searchService = $searchService;
 
-	public function behaviors()
+        parent::__construct($id, $module, $config);
+    }
+
+    public function behaviors()
 	{
 		return [
 			'access' => [
@@ -45,7 +58,7 @@ class AppController extends Controller
                     ],
 					[
 						'allow' => true,
-						'actions' => ['index'],
+						'actions' => ['index','search'],
 						'roles'=>['admin']
 					]
 				],
@@ -138,5 +151,16 @@ class AppController extends Controller
 	{
 		return $this->render('index');
 	}
+
+	public function actionSearch($q)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $serializer = new Serializer([
+            'collectionEnvelope' => 'items'
+        ]);
+
+        return $serializer->serialize($this->searchService->search($q));
+    }
 
 }

@@ -11,6 +11,18 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'container' => [
+        'definitions' => [
+            'app\interfaces\SearchServiceInterface' => [
+                'class' => app\services\MySqlSearchService::class,
+                'dataProvider' => [
+                    'pagination' => [
+                        'pageSize' => 50
+                    ]
+                ]
+            ]
+        ]
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',

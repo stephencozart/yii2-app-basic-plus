@@ -11,6 +11,35 @@ use yii\helpers\Html;
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script>
+        document.vuePlugins = [
+            {
+                namespace: 'dashboard',
+                region: 'main',
+                name: 'greeting',
+                component() {
+                    return {
+                        name: 'greeting',
+                        template: '<div class="greeting">Hey {{ firstName }},  how is it going today?</div>',
+                        data() {
+                            return {
+
+                            }
+                        },
+                        computed: {
+                            user() {
+                                return this.$store.state.user;
+                            },
+                            firstName() {
+                                return this.user.first_name.charAt(0).toUpperCase() + this.user.first_name.slice(1)
+                            }
+                        }
+                    }
+                }
+            }
+        ];
+
+    </script>
 </head>
 <body>
 <?php $this->beginBody() ?>
