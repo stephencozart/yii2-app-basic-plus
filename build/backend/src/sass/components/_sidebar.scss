@@ -4,7 +4,10 @@
   color: #ffffff;
   width: 270px;
   transition: transform 250ms ease;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   z-index: 2;
 
   .sidebar-overlay {
@@ -101,9 +104,9 @@
 }
 
 .main {
-  margin-left: -270px;
+  margin-left: 0;
   @media(min-width: 1024px) {
-    margin-left: 0;
+    margin-left: 270px;
   }
 }
 .sidebar {
@@ -114,7 +117,7 @@
 }
 
 .sidebar-open {
-
+  overflow: hidden;
   .sidebar {
     transform: translateX(0);
     .sidebar-overlay {

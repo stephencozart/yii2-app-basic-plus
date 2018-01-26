@@ -47,6 +47,9 @@ const router = new Router();
 if (window.app && window.app.user) {
     store.commit('USER', window.app.user);
 }
+if (window.app && window.app.roles) {
+    store.commit('ROLES', window.app.roles);
+}
 
 Vue.prototype.$http = axios;
 

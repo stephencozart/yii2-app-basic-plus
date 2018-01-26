@@ -44,6 +44,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Assigned Roles</label>
+                                <div v-for="role in roles">
+                                    <checkbox :id="'role-'+role.name">
+                                        <input slot="input" type="checkbox" :value="role.name" :id="'role-'+role.name" v-model="model.roles" />
+                                        <span slot="label">{{ role.description }}</span>
+                                    </checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <checkbox id="send-invite-email" v-if="!$route.params.id">
@@ -74,7 +87,8 @@
                     first_name: '',
                     last_name: '',
                     email: '',
-                    send_invite: false
+                    send_invite: false,
+                    roles: []
                 }
             }
         },
@@ -90,6 +104,9 @@
             },
             buttonLabel() {
                 return this.$route.params.id ? 'Update User' : 'Add User'
+            },
+            roles() {
+                return this.$store.state.roles;
             }
         },
         methods: {

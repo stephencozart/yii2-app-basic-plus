@@ -25,6 +25,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $new_password;
 
+    public $roles = [];
+
     public function fields()
     {
         return [
@@ -38,7 +40,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'updated_on',
             'is_activated' => function() {
                 return $this->getIsActivated();
-            }
+            },
+            'roles'
         ];
     }
 
@@ -61,7 +64,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['first_name', 'last_name', 'email', 'auth_key'], 'string', 'max' => 255],
             [['password', 'activation_code', 'reset_code'], 'string', 'max' => 64],
             [['email'], 'unique', 'targetAttribute' => ['email'], 'message' => 'That email address has already been used.'],
+            [['roles'], 'validateRoles']
         ];
+    }
+
+    public function validateRoles($attribute, $params, $validator)
+    {
+        $roles = Yii::$app->authManager->getRoles();
+
+        foreach($this->roles as $roleName) {
+
+            if (!array_key_exists($roleName, $roles)) {
+
+                $this->addError('roles', $roleName . ' is not a valid role.');
+
+            }
+
+        }
     }
 
     /**
@@ -102,6 +121,36 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $this->updated_on = date('Y-m-d H:i:s');
 
         return parent::beforeSave($insert);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $currentRoles = Yii::$app->authManager->getRolesByUser($this->id);
+
+        $allRoles = Yii::$app->authManager->getRoles();
+
+        foreach($currentRoles as $role) {
+            if (!in_array($role->name, $this->roles)) {
+                Yii::$app->authManager->revoke($role, $this->id);
+            }
+        }
+
+        foreach($this->roles as $roleName) {
+            if (!array_key_exists($roleName, $currentRoles)) {
+                $role = $allRoles[$roleName];
+                Yii::$app->authManager->assign($role, $this->id);
+            }
+        }
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterFind()
+    {
+        foreach(Yii::$app->authManager->getRolesByUser($this->id) as $role) {
+            $this->roles[] = $role->name;
+        }
+        parent::afterFind();
     }
 
     /**

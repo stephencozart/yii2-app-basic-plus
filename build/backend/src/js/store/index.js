@@ -17,11 +17,15 @@ export default function() {
                     message: 'Oh boy,  that did not go very will did it?',
                     icon: 'exclamation-triangle'
                 }*/
-            ]
+            ],
+            roles: []
         },
         mutations: {
             USER(state, payload) {
                 state.user = payload;
+            },
+            ROLES(state, payload) {
+                state.roles = payload;
             }
         },
         actions: {

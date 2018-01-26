@@ -26,8 +26,15 @@ class Module extends \yii\base\Module
 
         if (\Yii::$app->user->isGuest === false) {
 
+            $roles = [];
+
+            foreach(\Yii::$app->authManager->getRoles() as $role) {
+                $roles[] = $role;
+            }
+
             $app = [
-                'user' => \Yii::$app->user->identity
+                'user'  => \Yii::$app->user->identity,
+                'roles' => $roles
             ];
 
             $js = Json::encode($app);
@@ -37,11 +44,13 @@ class Module extends \yii\base\Module
         }
 
         Event::on(User::className(), User::EVENT_AFTER_INSERT, function(Event $event) {
+
             \Yii::$app->mailer->compose('user/activate', ['user' => $event->sender])
                 ->setFrom(\Yii::$app->params['reply_to'])
                 ->setTo($event->sender->email)
                 ->setSubject('Activate Email')
                 ->send();
+
         });
 
         parent::init();
