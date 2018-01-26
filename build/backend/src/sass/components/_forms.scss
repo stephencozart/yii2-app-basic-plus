@@ -7,7 +7,7 @@ input:invalid {
   }
 }
 .has-error {
-  .help-block-error {
+  .help-block-error, .help-block {
     color: $danger;
     font-size: .85rem;
   }

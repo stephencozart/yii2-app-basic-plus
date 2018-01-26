@@ -68,6 +68,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'admin/user'],
+                'admin/users/send-activation' => 'admin/user/send-activation',
                 'admin/<controller:\w+>/<id:\d+>' => 'admin/<controller>/view',
                 'admin/<controller:\w+>/<action:\w+>/<id:\d+>'=> 'admin/<controller>/<action>',
                 'admin/<controller:\w+>/<action:\w+>'=> 'admin/<controller>/<action>',

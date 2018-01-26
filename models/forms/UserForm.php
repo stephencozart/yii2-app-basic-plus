@@ -27,6 +27,7 @@ class UserForm extends Model {
     public $password_confirmation;
     public $remember_me;
     private $user;
+    public $activation_code;
 
     /**
      * @return array
@@ -105,7 +106,7 @@ class UserForm extends Model {
         $this->user = User::findByEmail($this->email);
 
         if ($this->validate() && $this->user !== null) {
-            if (!$this->user->isActivated()) {
+            if (!$this->user->isActivated) {
                 $this->addError('email', 'The user account is not activated');
             } else {
                 return \Yii::$app->user->login($this->getUser(), $this->remember_me ? 3600*24*30 : 0);
@@ -117,9 +118,18 @@ class UserForm extends Model {
     public function activate()
     {
         if ($this->validate()) {
-            return User::updateAll(['activation_code' => null,
-                ['password'=>\Yii::$app->security->generatePasswordHash($this->password)]],
-                ['activation_code' => $this->activation_code, 'email' => $this->email]
+
+
+            return User::updateAll(
+                [
+                    'activation_code' => null,
+                    'password'=>\Yii::$app->security->generatePasswordHash($this->password),
+                    'updated_on' => date('Y-m-d H:i:s')
+                ],
+                [
+                    'activation_code' => $this->activation_code,
+                    'email' => $this->email
+                ]
             );
         }
 

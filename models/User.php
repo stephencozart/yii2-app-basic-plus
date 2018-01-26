@@ -35,7 +35,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'avatar',
             'status_id',
             'created_on',
-            'updated_on'
+            'updated_on',
+            'is_activated' => function() {
+                return $this->getIsActivated();
+            }
         ];
     }
 
@@ -165,9 +168,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public function isActivated()
+    public function getIsActivated()
     {
-        return ($this->auth_key === null);
+        return !empty($this->password);
     }
 
     public function getAvatar($s=50, $d='mm')

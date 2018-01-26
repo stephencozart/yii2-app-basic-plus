@@ -94,7 +94,23 @@ class AppController extends Controller
 
                 Yii::$app->session->setFlash('success', 'Your user account is now activated.  You may now sign in.');
 
-                return $this->redirect(['login']);
+                $login = new UserForm(['scenario' => UserForm::SCENARIO_LOGIN]);
+
+                $login->email = $user->email;
+
+                $login->password = $model->password;
+
+                if ($login->login()) {
+
+                    return $this->redirect(['/admin']);
+
+                } else {
+
+                    return $this->redirect(['login']);
+
+                }
+
+
 
             }
         }

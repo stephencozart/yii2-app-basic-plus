@@ -33,7 +33,11 @@
                             {{ item.first_name }} {{ item.last_name }}
                         </td>
                         <td class="actions">
-                            <a class="edit" @click="edit(item)">edit <font-awesome-icon icon="edit"></font-awesome-icon></a>
+                            <a v-if="!item.is_activated" class="btn btn-light btn-sm btn-rounded send-activation" @click="sendActivation(item)">
+                                send activation
+                                <font-awesome-icon icon="share-square"></font-awesome-icon>
+                            </a>
+                            <a class="btn btn-light btn-sm btn-rounded edit" @click="edit(item)">edit <font-awesome-icon icon="edit"></font-awesome-icon></a>
                         </td>
                     </tr>
                 </tbody>
@@ -73,6 +77,13 @@
             this.fetchUsers();
         },
         methods: {
+            sendActivation(item) {
+                this.$http.post('/admin/users/send-activation', { email: item.email }).then((response) => {
+                    this.$store.dispatch('pushSuccessNotification', 'Activation email has been sent to ' + item.email);
+                }).catch((error) => {
+                    this.$store.dispatch('pushErrorNotification', error.response.statusText);
+                });
+            },
             fetchUsers(url) {
                 url = !url ? '/admin/users' : url;
                 this.$http.get(url).then((response) => {
