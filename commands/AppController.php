@@ -25,11 +25,11 @@ class AppController extends Controller
      */
     public function actionCreateUser()
     {
-        $firstName = $this->prompt('First Name', ['required' => true]);
+        $firstName = $this->prompt('First Name:', ['required' => true]);
 
-        $lastName = $this->prompt('Last Name', ['required' => true]);
+        $lastName = $this->prompt('Last Name:', ['required' => true]);
 
-        $email = $this->prompt('Email', ['required' => true]);
+        $email = $this->prompt('Email:', ['required' => true]);
 
         $roleOptions = [];
 
@@ -37,7 +37,9 @@ class AppController extends Controller
             $roleOptions[$role->name] = $role->description ? $role->description : $role->name;
         }
 
-        $roles = $this->select('Roles', $roleOptions);
+        $roleOptions['none'] = 'None';
+
+        $roles = $this->select('Role:', $roleOptions);
 
         var_dump($firstName, $lastName, $email, $roles);
     }
