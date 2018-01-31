@@ -28,9 +28,11 @@ import Checkbox from './components/Checkbox';
 import Notifications from './components/Notifications';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare } from '@fortawesome/fontawesome-free-solid';
+import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle,
+    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid';
 
-fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare);
+fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle,
+    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt);
 
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);

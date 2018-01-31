@@ -47,6 +47,8 @@ body {
 
     .content {
       padding: 1.5rem 2rem;
+      min-height: calc(100vh - 60px);
+
       @media(min-width: 1024px) {
         padding: 2rem;
       }
