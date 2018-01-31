@@ -20,4 +20,5 @@ class FileManagerController extends ApiController
 
         return $dataProvider;
     }
+
 }
