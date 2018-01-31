@@ -11,8 +11,8 @@ let mix = require('laravel-mix');
  |
  */
 mix.options({
-    extractVueStyles: true, // Extract .vue component styling to file, rather than inline.
-    globalVueStyles: 'frontend/src/sass/_variables.scss', // Variables file to be imported in every component.
+    //extractVueStyles: true, // Extract .vue component styling to file, rather than inline.
+    //globalVueStyles: 'frontend/src/sass/_variables.scss', // Variables file to be imported in every component.
     processCssUrls: false // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
 });
 

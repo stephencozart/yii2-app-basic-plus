@@ -39,8 +39,10 @@ class AppController extends Controller
 
         $roleOptions['none'] = 'None';
 
-        $roles = $this->select('Role:', $roleOptions);
+        $role = $this->select('Role:', $roleOptions);
 
-        var_dump($firstName, $lastName, $email, $roles);
+
+
+
     }
 }

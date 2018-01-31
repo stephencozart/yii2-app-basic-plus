@@ -21,6 +21,7 @@ Vue.use(VeeValidate, {
     validity: true
 });
 // components
+import LayoutElement from './components/LayoutElement';
 import SideBar from './components/SideBar';
 import Header from './components/Header';
 import Checkbox from './components/Checkbox';
@@ -35,7 +36,9 @@ Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('notifications', Notifications);
+Vue.component('layout-element', LayoutElement);
 Vue.component(Checkbox);
+
 
 
 // 4. Create and mount the root instance.
@@ -52,6 +55,8 @@ if (window.app && window.app.roles) {
 }
 
 Vue.prototype.$http = axios;
+
+window.store = store;
 
 if (document.getElementById('app')) {
     const app = new Vue({

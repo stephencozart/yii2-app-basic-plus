@@ -18,7 +18,29 @@ export default function() {
                     icon: 'exclamation-triangle'
                 }*/
             ],
-            roles: []
+            roles: [],
+
+            layoutInspector: {
+                className: '',
+                properties: null
+            },
+            inspect: null,
+            devices: [
+                {
+                    slug: 'desktop',
+                    name: 'Desktop'
+                },
+                {
+                    slug: 'tablet',
+                    name: 'Tablet'
+                },
+                {
+                    slug: 'mobile',
+                    name: 'Mobile'
+                }
+
+            ],
+            deviceMode: 'desktop'
         },
         mutations: {
             USER(state, payload) {
@@ -26,6 +48,15 @@ export default function() {
             },
             ROLES(state, payload) {
                 state.roles = payload;
+            },
+            LAYOUT_INSPECTOR(state, payload) {
+                state.layoutInspector = payload;
+            },
+            INSPECT(state, payload) {
+                state.inspect = payload;
+            },
+            DEVICE_MODE(state, payload) {
+                state.deviceMode = payload;
             }
         },
         actions: {

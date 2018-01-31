@@ -20,6 +20,13 @@ $config = [
                         'pageSize' => 50
                     ]
                 ]
+            ],
+            'League\Flysystem\AdapterInterface' => [
+                ['class' => \League\Flysystem\Adapter\Local::class],
+                [dirname(__DIR__).'/storage']
+            ],
+            'League\Flysystem\FilesystemInterface' => [
+                'class' => \League\Flysystem\Filesystem::class
             ]
         ]
     ],

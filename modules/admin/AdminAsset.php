@@ -9,6 +9,7 @@
 namespace app\modules\admin;
 
 
+use yii\helpers\VarDumper;
 use yii\web\AssetBundle;
 
 class AdminAsset extends AssetBundle

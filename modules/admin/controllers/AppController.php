@@ -12,6 +12,7 @@ namespace app\modules\admin\controllers;
 use app\interfaces\SearchServiceInterface;
 use app\models\forms\UserForm;
 use app\models\User;
+use League\Flysystem\FilesystemInterface;
 use yii\base\Module;
 use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
@@ -27,11 +28,11 @@ class AppController extends Controller
      */
     protected $searchService;
 
-    public function __construct($id, Module $module, SearchServiceInterface $searchService, array $config = [])
+    public function __construct($id, Module $module, SearchServiceInterface $searchService, FilesystemInterface $filesystem, array $config = [])
     {
-        $this->searchService = $searchService;
-
         parent::__construct($id, $module, $config);
+
+        $this->searchService = $searchService;
     }
 
     public function behaviors()
@@ -58,7 +59,7 @@ class AppController extends Controller
                     ],
 					[
 						'allow' => true,
-						'actions' => ['index','search'],
+						'actions' => ['index','search','editor'],
 						'roles'=>['admin']
 					]
 				],
