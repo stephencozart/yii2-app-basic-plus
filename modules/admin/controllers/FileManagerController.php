@@ -7,6 +7,7 @@ use app\models\FileCollection;
 use app\modules\admin\ApiController;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Inflector;
+use yii\web\UploadedFile;
 
 class FileManagerController extends ApiController
 {
@@ -19,6 +20,13 @@ class FileManagerController extends ApiController
         ]);
 
         return $dataProvider;
+    }
+
+    public function actionUpload()
+    {
+        $uploadedFile = UploadedFile::getInstancesByName('files');
+
+        return $uploadedFile;
     }
 
 }

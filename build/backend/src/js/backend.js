@@ -29,10 +29,10 @@ import Notifications from './components/Notifications';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle,
-    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid';
+    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle,
-    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt);
+    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload);
 
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
