@@ -40,7 +40,8 @@ export default function() {
                 }
 
             ],
-            deviceMode: 'desktop'
+            deviceMode: 'desktop',
+            overlay: false,
         },
         mutations: {
             USER(state, payload) {
@@ -57,6 +58,12 @@ export default function() {
             },
             DEVICE_MODE(state, payload) {
                 state.deviceMode = payload;
+            },
+            SHOW_OVERLAY(state) {
+                state.overlay = true;
+            },
+            HIDE_OVERLAY(state) {
+                state.overlay = false;
             }
         },
         actions: {

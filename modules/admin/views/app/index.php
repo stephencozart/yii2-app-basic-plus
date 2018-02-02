@@ -13,4 +13,13 @@
             </transition>
         </div>
     </div>
+    <transition
+            name="app-overlay-transition"
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut"
+            appear-acitive-class="animated fadeIn"
+            :appear="true"
+    >
+        <div @click="hideOverlay" v-if="overlay" class="app-overlay"></div>
+    </transition>
 </div>

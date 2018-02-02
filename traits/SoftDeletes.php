@@ -71,7 +71,7 @@ trait SoftDeletes
 
     public static function deletedAtAttribute()
     {
-        return isset(self::$deletedAtAttribute) ? self::$deletedAtAttribute : 'deleted_on';
+        return isset(self::$deletedAtAttribute) ? self::$deletedAtAttribute : 'deleted_at';
     }
 
     public function isTrashed()

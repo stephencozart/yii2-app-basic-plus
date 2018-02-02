@@ -16,6 +16,7 @@ class m180131_043332_create_file_table extends Migration
             'id' => $this->primaryKey(),
             'owner_type' => $this->string(100),
             'owner_id' => $this->string(100),
+            'category' => $this->string(100),
             'name' => $this->string()->notNull(),
             'file_name' => $this->string()->notNull(),
             'mime_type' => $this->string(100),
@@ -33,6 +34,7 @@ class m180131_043332_create_file_table extends Migration
         $this->createIndex('idx_deleted', '{{%file}}', ['deleted_at']);
         $this->createIndex('idx_name', '{{%file}}', ['deleted_at','name']);
         $this->createIndex('idx_file_name', '{{%file}}', ['deleted_at','file_name']);
+        $this->createIndex('idx_category', '{{%file}}', ['deleted_at','category']);
     }
 
     /**

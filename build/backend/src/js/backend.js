@@ -29,10 +29,10 @@ import Notifications from './components/Notifications';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle,
-    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload } from '@fortawesome/fontawesome-free-solid';
+    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile } from '@fortawesome/fontawesome-free-solid';
 
 fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle,
-    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload);
+    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile);
 
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
@@ -68,6 +68,14 @@ if (document.getElementById('app')) {
             toggleSidebar() {
                 console.log('foo');
                 document.body.classList.toggle('sidebar-open');
+            },
+            hideOverlay() {
+                this.$store.commit('HIDE_OVERLAY');
+            }
+        },
+        computed: {
+            overlay() {
+                return this.$store.state.overlay;
             }
         }
     }).$mount('#app');

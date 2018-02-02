@@ -33,6 +33,15 @@ body {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+.app-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(100,100,100,.7);
+  z-index: 2;
+}
 .app-wrapper {
   display: flex;
   min-height: 100vh;

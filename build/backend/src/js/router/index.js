@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Home from './components/Home.vue';
 import Users from './components/Users.vue';
 import User from './components/User.vue';
-import FileManager from './components/FileManager';
+import MediaLibrary from './components/MediaLibrary';
 
 Vue.use(VueRouter);
 
@@ -12,7 +12,7 @@ const routes = [
     { path: '/users', component: Users, name: 'users', props: { icon: 'users' } },
     { path: '/user/:id', component: User, name: 'edit-user', props: { icon: 'user' } },
     { path: '/user', component: User, name: 'add-user', props: { icon: 'user' } },
-    { path: '/file-manager', component: FileManager, name: 'file-manager', props: { icon: 'cloud-upload-alt'}}
+    { path: '/media-library', component: MediaLibrary, name: 'media-library', props: { icon: 'cloud-upload-alt'}}
 ];
 
 export default function create() {

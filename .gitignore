@@ -35,3 +35,5 @@ node_modules/
 web/dist/
 
 mix-manifest.json
+
+storage/

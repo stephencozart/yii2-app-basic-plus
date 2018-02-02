@@ -21,7 +21,7 @@ class FileCollection extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'file_collection';
+        return '{{%file_collection}}';
     }
 
     /**

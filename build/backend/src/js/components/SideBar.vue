@@ -28,7 +28,7 @@
         <div class="sidebar-nav">
             <router-link to="/"><font-awesome-icon icon="tachometer-alt"></font-awesome-icon> Dashboard </router-link>
             <router-link to="/users"><font-awesome-icon icon="users"></font-awesome-icon> Users</router-link>
-            <router-link to="/file-manager"><font-awesome-icon icon="cloud-upload-alt"></font-awesome-icon> File Manager </router-link>
+            <router-link to="/media-library"><font-awesome-icon icon="film"></font-awesome-icon> Media Library </router-link>
         </div>
         <div class="sidebar-overlay" @click="$emit('toggle')">
             <button class="sidebar-close">X</button>
