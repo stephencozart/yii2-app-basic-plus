@@ -74,7 +74,16 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'admin/user'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                        'admin/user',
+                        'admin/entry',
+                        'admin/entry-type',
+                        'admin/field-group',
+                        'admin/field'
+                    ]
+                ],
                 //'admin/file-manager/collections' => 'admin/file-manager/collections',
                 'admin/users/send-activation' => 'admin/user/send-activation',
                 'admin/<controller:\w+>/<id:\d+>' => 'admin/<controller>/view',

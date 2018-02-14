@@ -27,6 +27,13 @@ class MediaLibraryController extends ApiController
         parent::__construct($id, $module, $config);
     }
 
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        return $actions;
+    }
+
     public function actionCollections()
     {
         $dataProvider = new ActiveDataProvider([
@@ -39,7 +46,6 @@ class MediaLibraryController extends ApiController
     public function actionUpload()
     {
         if ($uploadedFile = UploadedFile::getInstanceByName('file')) {
-
             $media = new File([
                 'owner_type' => \Yii::$app->request->post('owner_type'),
                 'owner_id' => \Yii::$app->request->post('owner_id'),
@@ -78,6 +84,44 @@ class MediaLibraryController extends ApiController
         }
 
         return $uploadedFile;
+    }
+
+    public function prepareDataProvider()
+    {
+        $query = File::find();
+
+        if ($type = \Yii::$app->request->get('type')) {
+
+            $type = Inflector::singularize($type);
+
+            switch($type) {
+                case 'image':
+                case 'video':
+                case 'audio':
+                    $query->andWhere(['like','mime_type', $type. '/%', false]);
+                    break;
+                case 'recent':
+                    $query->orderBy('updated_at DESC');
+                    break;
+                case 'document':
+                    $query
+                        ->andWhere(['not', ['like','mime_type', 'video/%', false]])
+                        ->andWhere(['not', ['like','mime_type', 'audio/%', false]])
+                        ->andWhere(['not', ['like','mime_type', 'image/%', false]]);
+                    break;
+
+            }
+
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 50
+            ]
+        ]);
+
+        return $dataProvider;
     }
 
 }

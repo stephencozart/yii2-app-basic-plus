@@ -37,7 +37,7 @@ mix.js('build/backend/src/js/backend.js', 'web/dist/'+prefix+'backend.js')
     .copy('build/backend/src/images', 'web/dist/backend/images');
 
 mix.browserSync({
-    proxy: '127.0.0.1:8000',
+    proxy: 'local.basic-app.com',
     files: [
         'web/dist/*.css',
         'web/dist/*.js',

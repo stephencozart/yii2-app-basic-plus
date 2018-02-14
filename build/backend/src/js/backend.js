@@ -4,10 +4,25 @@ import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 import Router from './router';
 import Store from './store';
+import SideBar from './components/SideBar';
+import Header from './components/Header';
+import Checkbox from './components/Checkbox';
+import Notifications from './components/Notifications';
+import fontawesome from '@fortawesome/fontawesome'
+import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
+import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle,
+    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile, faFolder } from '@fortawesome/fontawesome-free-solid';
+
+import { faFile as faFileRegular } from '@fortawesome/fontawesome-free-regular';
+
+fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle,
+    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile, faFolder, faFileRegular);
+
 _.each(document.vuePlugins, (plugin) => {
     let c = plugin.component();
     Vue.component(c.name, c);
 });
+
 Vue.use(VeeValidate, {
     locale: 'en',
     dictionary: {
@@ -21,24 +36,11 @@ Vue.use(VeeValidate, {
     validity: true
 });
 // components
-import LayoutElement from './components/LayoutElement';
-import SideBar from './components/SideBar';
-import Header from './components/Header';
-import Checkbox from './components/Checkbox';
-import Notifications from './components/Notifications';
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import { faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle, faTimesCircle,
-    faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile } from '@fortawesome/fontawesome-free-solid';
-
-fontawesome.library.add(faEdit, faAngleDown, faSignOutAlt, faAngleLeft, faAngleRight, faUsers, faUser, faCheckCircle,
-    faTimesCircle, faExclamationTriangle, faTachometerAlt, faShareSquare, faCloudUploadAlt, faUpload, faFilm, faFile);
-
 Vue.component('side-bar', SideBar);
 Vue.component('app-header', Header);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('font-awesome-layers', FontAwesomeLayers);
 Vue.component('notifications', Notifications);
-Vue.component('layout-element', LayoutElement);
 Vue.component(Checkbox);
 
 
@@ -57,6 +59,18 @@ if (window.app && window.app.roles) {
 }
 
 Vue.prototype.$http = axios;
+
+
+Vue.filter('humanizeFileSize', function(bytes, decimals) {
+    if (bytes === 0) {
+        return '0 Bytes';
+    }
+    let k = 1024,
+        dm = decimals || 0,
+        sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+});
 
 window.store = store;
 

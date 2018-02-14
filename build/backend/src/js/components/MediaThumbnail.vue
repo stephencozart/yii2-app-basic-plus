@@ -1,5 +1,5 @@
 <template>
-    <div class="media-thumbnail">
+    <a class="media-thumbnail" :href="url" target="_blank">
         <div class="media-thumbnail-inner">
             <div class="icon">
                 <font-awesome-icon :icon="icon" size="3x"></font-awesome-icon>
@@ -8,7 +8,7 @@
                 {{ file_name }}
             </div>
         </div>
-    </div>
+    </a>
 </template>
 <script>
     export default {
@@ -19,7 +19,8 @@
             'name',
             'id',
             'width',
-            'height'
+            'height',
+            'url'
         ],
         computed: {
             icon() {
@@ -31,7 +32,12 @@
 <style lang="scss">
     .media-thumbnail {
         position: relative;
-        width: 20%;
+        width: 18%;
+        background-color: #fefefe;
+        border-radius: 2px;
+        margin: 1%;
+        box-shadow: 0 0 2px 0 #ddd;
+        display: block;
 
         &:after {
             content: '';

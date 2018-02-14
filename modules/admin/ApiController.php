@@ -24,16 +24,17 @@ abstract class ApiController extends ActiveController
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
                         'roles'=>['admin']
                     ]
                 ],
-            ],
+            ]
         ];
     }
+
 
     public function init()
     {

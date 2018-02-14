@@ -82,7 +82,7 @@
   }
   .sidebar-nav {
     padding: .4rem 0;
-    a {
+    > a {
       display: block;
       padding: .4rem .8rem;
       transition: background-color 200ms ease-in-out;
@@ -98,6 +98,16 @@
         opacity: .7;
         transition: opacity 200ms ease-in-out;
         margin-right: .5rem;
+      }
+      ul {
+        list-style: none;
+        margin-bottom: 0;
+        padding-left: 1.8rem;
+        li {
+          a {
+            padding: .4rem 0;
+          }
+        }
       }
     }
   }

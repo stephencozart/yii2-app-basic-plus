@@ -12,7 +12,8 @@ const routes = [
     { path: '/users', component: Users, name: 'users', props: { icon: 'users' } },
     { path: '/user/:id', component: User, name: 'edit-user', props: { icon: 'user' } },
     { path: '/user', component: User, name: 'add-user', props: { icon: 'user' } },
-    { path: '/media-library', component: MediaLibrary, name: 'media-library', props: { icon: 'cloud-upload-alt'}}
+    { path: '/media-library', component: MediaLibrary, name: 'media-library', props: { icon: 'cloud-upload-alt'} },
+    { path: '/media-library/:type', component: MediaLibrary, name: 'media-library-type', props: { icon: 'cloud-upload-alt'} },
 ];
 
 export default function create() {
