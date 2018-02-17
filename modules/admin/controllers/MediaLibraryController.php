@@ -90,6 +90,8 @@ class MediaLibraryController extends ApiController
     {
         $query = File::find();
 
+        $sort = [];
+
         if ($type = \Yii::$app->request->get('type')) {
 
             $type = Inflector::singularize($type);
@@ -99,6 +101,16 @@ class MediaLibraryController extends ApiController
                 case 'video':
                 case 'audio':
                     $query->andWhere(['like','mime_type', $type. '/%', false]);
+                    $sort = [
+                        'defaultOrder' => [
+                            'created_at' => SORT_DESC
+                        ],
+                        'attributes' => [
+                            'created_at',
+                            'updated_at',
+                            'file_name'
+                        ]
+                    ];
                     break;
                 case 'recent':
                     $query->orderBy('updated_at DESC');
@@ -108,6 +120,11 @@ class MediaLibraryController extends ApiController
                         ->andWhere(['not', ['like','mime_type', 'video/%', false]])
                         ->andWhere(['not', ['like','mime_type', 'audio/%', false]])
                         ->andWhere(['not', ['like','mime_type', 'image/%', false]]);
+                    $sort = [
+                        'defaultOrder' => [
+                            'created_at' => SORT_DESC
+                        ]
+                    ];
                     break;
 
             }
@@ -118,8 +135,10 @@ class MediaLibraryController extends ApiController
             'query' => $query,
             'pagination' => [
                 'pageSize' => 50
-            ]
+            ],
+            'sort' => $sort
         ]);
+
 
         return $dataProvider;
     }

@@ -2,6 +2,8 @@ require('../../../bootstrap');
 import axios from 'axios';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
+import VueSweetAlert from 'vue-sweetalert'
+import filters from './filters';
 import Router from './router';
 import Store from './store';
 import SideBar from './components/SideBar';
@@ -22,6 +24,8 @@ _.each(document.vuePlugins, (plugin) => {
     let c = plugin.component();
     Vue.component(c.name, c);
 });
+
+Vue.use(VueSweetAlert);
 
 Vue.use(VeeValidate, {
     locale: 'en',
@@ -60,17 +64,38 @@ if (window.app && window.app.roles) {
 
 Vue.prototype.$http = axios;
 
+String.prototype.replaceUrlParam = function(param, value) {
+    let url = this;
+    let re = new RegExp("[\\?&]" + param + "=([^&#]*)", "i"), match = re.exec(url), delimiter, newString;
 
-Vue.filter('humanizeFileSize', function(bytes, decimals) {
-    if (bytes === 0) {
-        return '0 Bytes';
+    if (match === null) {
+        // append new param
+        let hasQuestionMark = /\?/.test(url);
+        delimiter = hasQuestionMark ? "&" : "?";
+        newString = url + delimiter + param + "=" + value;
+    } else {
+        delimiter = match[0].charAt(0);
+        newString = url.replace(re, delimiter + param + "=" + value);
     }
-    let k = 1024,
-        dm = decimals || 0,
-        sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-});
+
+    return newString;
+};
+
+function nthIndex(str, pat, n) {
+    let L = str.length, i= -1;
+    while(n-- && i++<L) {
+        i= str.indexOf(pat, i);
+        if (i < 0) break;
+    }
+    return i;
+}
+
+String.prototype.convertUrlToRelative = function() {
+    let url = this;
+    let pos = nthIndex(url, '/', 3);
+    return url.substring(pos);
+};
+
 
 window.store = store;
 

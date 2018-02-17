@@ -52,6 +52,13 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'formatter' => [
+            'dateFormat' => 'dd/MM/yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ',',
+            'currencyCode' => 'USD',
+            'timeZone' => 'America/Chicago',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
@@ -78,10 +85,7 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
                         'admin/user',
-                        'admin/entry',
-                        'admin/entry-type',
-                        'admin/field-group',
-                        'admin/field'
+                        'admin/media-library' => 'admin/media-library'
                     ]
                 ],
                 //'admin/file-manager/collections' => 'admin/file-manager/collections',

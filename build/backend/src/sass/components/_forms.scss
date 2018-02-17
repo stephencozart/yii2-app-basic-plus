@@ -27,3 +27,51 @@ input:invalid {
   border-color: $purple;
   box-shadow: 0 0 0 1px $purple;
 }
+
+.select {
+  position: relative;
+  display: block;
+  border-radius: 2px;
+  border: 1px solid #dde6e9;
+  background-color: #ffffff;
+
+  select {
+    height: 40px;
+    margin-bottom: 0;
+    line-height: 20px;
+    padding: 6px;
+    padding-left: 15px;
+    padding-right: 40px;
+    border: 0;
+    background: transparent;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    color: #666;
+    width: 100%;
+  }
+
+  &:before {
+    content: "▾";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    color: #666;
+    position: absolute;
+    right: 11px;
+    top: 8px;
+    text-shadow: 0 1px 0 #fff;
+    pointer-events: none;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    right: 28px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #fff;
+    pointer-events: none;
+  }
+}

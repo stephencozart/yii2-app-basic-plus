@@ -28,34 +28,49 @@
         </div>
         <div class="contents">
             <div style="position: absolute;">{{ }}</div>
-            <div class="content-header">
+            <div class="content-header" v-if="media.length > 0">
+                <div class="file-actions" v-if="preview">
+                    <a href="javascript:void(0)" class="btn btn-danger btn-outline-danger btn-sm btn-rounded" @click="deleteFile">Delete</a>
+                </div>
+                <div class="sort-widget" v-if="showSort">
+                    <div class="select">
+                        <select class="form-control" v-model="sort">
+                            <option value="-updated_at">Modified Date: New to Old</option>
+                            <option value="updated_at">Modified Date: Old to New</option>
+                            <option value="-created_at">Upload Date: New to Old</option>
+                            <option value="created_at">Upload Date: Old to New</option>
+                            <option value="file_name">Name: A-Z</option>
+                            <option value="-file_name">Name: Z-A</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="upload-button">
                     <a @click="chooseFile" class="file-upload-button">
                         <font-awesome-icon icon="upload"></font-awesome-icon> Upload Files
                     </a>
                     <input ref="fileInput" type="file" multiple @change="uploadFile" />
                 </div>
-                <div v-if="overlay && (uploader.files && uploader.files.length > 0)" class="upload-progress-wrapper">
-                    <div v-for="file in uploader.files" class="upload-progress-container">
-                        <div class="icon">
-                            <font-awesome-icon :icon="file.progress === 100 ? 'check-circle' : 'upload'"></font-awesome-icon>
+            </div>
+            <div v-if="overlay && (uploader.files && uploader.files.length > 0)" class="upload-progress-wrapper">
+                <div v-for="file in uploader.files" class="upload-progress-container">
+                    <div class="icon">
+                        <font-awesome-icon :icon="file.progress === 100 ? 'check-circle' : 'upload'"></font-awesome-icon>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">
+                            {{ file.fileName }} <span>({{ file.fileSize }})</span>
                         </div>
-                        <div class="file-info">
-                            <div class="file-name">
-                                {{ file.fileName }} <span>({{ file.fileSize }})</span>
-                            </div>
-                            <div class="upload-progress">
-                                <div class="upload-progress-bar" v-bind:style="{ width: file.progress + '%'}"></div>
-                            </div>
-                            <div v-if="file.error" class="upload-error text-danger">
-                                {{ file.error }}
-                            </div>
+                        <div class="upload-progress">
+                            <div class="upload-progress-bar" v-bind:style="{ width: file.progress + '%'}"></div>
+                        </div>
+                        <div v-if="file.error" class="upload-error text-danger">
+                            {{ file.error }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="content-body">
-                <div class="file-list">
+                <div class="file-list" v-if="media.length > 0">
                     <file
                         @click="preview = mediaFile"
                         v-bind="mediaFile"
@@ -63,6 +78,15 @@
                         :key="'file-' + mediaFile.id"
                         v-for="mediaFile in media">
                     </file>
+                </div>
+                <div class="no-content" v-else>
+                    <p>No files found</p>
+                    <div class="upload-button">
+                        <a @click="chooseFile" class="file-upload-button">
+                            <font-awesome-icon icon="upload"></font-awesome-icon> Upload Files
+                        </a>
+                        <input ref="fileInput" type="file" multiple @change="uploadFile" />
+                    </div>
                 </div>
                 <transition
                         name="app-transition"
@@ -137,13 +161,17 @@
                 media: [],
                 links: {},
                 meta: {},
-                preview: null
+                preview: null,
+                sort: '-created_at'
             }
         },
         watch: {
             '$route': function() {
-                this.media = [];
-                this.getMedia();
+                this.getMedia(null, true);
+            },
+            sort() {
+                let url = this.links.self.href.convertUrlToRelative();
+                this.getMedia(url, true);
             }
         },
         computed: {
@@ -165,12 +193,48 @@
                 }
 
                 return url;
+            },
+            showSort() {
+                return this.$route.params.type !== 'recent';
             }
         },
         mounted() {
             this.getMedia();
         },
         methods: {
+            deleteFile() {
+                this.$swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result) {
+
+                        this.$http.delete('/admin/media-library/'+this.preview.id).then((response) => {
+                            this.getMedia(this.links.self.href.convertUrlToRelative(), true);
+                            this.preview = null;
+                            this.$swal(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }).catch((error) => {
+                            this.$swal(
+                                'Delete failed!',
+                                error.response.statusText,
+                                'error'
+                            )
+                        });
+
+
+                    }
+                }).catch((result) => {
+
+                });
+            },
             uploadFile(event) {
                 this.uploader.files = [];
 
@@ -210,8 +274,12 @@
             chooseFile() {
                 this.$refs.fileInput.click();
             },
-            getMedia(url) {
+            getMedia(url, replace) {
                 let u = url ? url : this.mediaUrl;
+                u = u.replaceUrlParam('sort', this.sort);
+                if (replace) {
+                    this.media = [];
+                }
                 this.$http.get(u).then((response) => {
                     this.media = this.media.concat(response.data.items);
                     this.links = response.data._links;
@@ -219,14 +287,6 @@
                 }).catch((error) => {
                     this.$store.dispatch('errorNotification', error.response.statusText);
                 });
-            },
-            nthIndex(str, pat, n) {
-                let L = str.length, i= -1;
-                while(n-- && i++<L) {
-                    i= str.indexOf(pat, i);
-                    if (i < 0) break;
-                }
-                return i;
             }
         }
     }
@@ -253,9 +313,10 @@
             animation-duration: 250ms;
             width: 275px;
             background: #f9f9f9;
-            min-height: calc(100vh - 60px);
+            height: calc(100vh - 124px);
             box-shadow: 0 0 3px 0 #cccccc;
-            position: relative;
+            position: absolute;
+            right: 0;
             padding: 1.7rem 1.2rem 1.2rem 1.2rem;
 
             .preview-panel-close {
@@ -277,6 +338,11 @@
 
             .preview-panel-preview {
                 img, video, audio {
+                    max-width: 100%;
+                }
+                /* to fixed .svg in img src attribute */
+                img {
+                    width: 300px;
                     max-width: 100%;
                 }
                 text-align: center;
@@ -308,11 +374,7 @@
             }
         }
 
-        .file-upload-button {
-            display: block;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-        }
+
 
         .upload-progress-wrapper {
             position: fixed;
@@ -365,6 +427,8 @@
             background-color: #eeeeee;
             flex: 0 0 260px;
             max-width: 260px;
+            max-height: calc(100vh - 60px);
+
             a {
                 padding: .5rem 2rem;
                 display: block;
@@ -391,23 +455,18 @@
             flex-basis: 0;
             flex-grow: 1;
             padding: 0;
+
+
             .content-header {
                 display: flex;
-
-                .upload-button {
-                    margin-right: 15px;
-                    input[type="file"] {
-                        position: absolute;
-                        opacity: 0;
-                        height: 0;
-                        width: 0;
-                    }
-                }
-
-
+                align-items: center;
+                padding-left: 2rem;
+                border-bottom: 1px solid #eeeeee;
             }
             .content-body {
                 display: flex;
+                max-height: calc(100vh - 124px);
+                overflow: scroll;
                 .file-list {
                     flex-basis: 0;
                     flex-grow: 1;
@@ -420,9 +479,49 @@
             }
         }
 
+        .file-upload-button {
+            display: block;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+        }
 
+        .upload-button {
+            margin-left: auto;
+            input[type="file"] {
+                position: absolute;
+                opacity: 0;
+                height: 0;
+                width: 0;
+            }
+        }
 
+        .no-content {
+            padding: 3rem;
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .upload-button {
+                margin-left: 0;
+                border-radius: 50px;
+                border: 2px solid #333333;
+                &:hover {
+                    background-color: #eeeeee;
+                }
+            }
+        }
 
+        .file-actions {
+            margin-right: 2rem;
+        }
+
+        .sort-widget {
+            transition: all 250ms ease-in-out;
+        }
 
     }
 </style>

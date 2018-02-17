@@ -9,7 +9,7 @@
             </div>
             <div class="file-list-meta">
                 <span>
-                    Modified {{ updated_at }}
+                    Modified {{ updated_at | humanizeDate }}
                 </span>
                 <span>
                     {{ file_size | humanizeFileSize }}
@@ -60,7 +60,9 @@
         &:nth-child(odd) {
             background-color: #ffffff;
         }
-
+        &.active {
+            background-color: #c9c9c9;
+        }
         .file-list-thumbnail {
             width: 1.7rem;
             margin-right: 1rem;
