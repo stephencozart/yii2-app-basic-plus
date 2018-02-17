@@ -46,6 +46,42 @@ class MediaLibraryController extends ApiController
     public function actionUpload()
     {
         if ($uploadedFile = UploadedFile::getInstanceByName('file')) {
+
+            $id3 = new \getID3();
+
+            $meta = $id3->analyze($uploadedFile->tempName);
+
+            $width = null;
+
+            $height = null;
+
+            if (!empty($meta['video']['resolution_x']) && !empty($meta['video']['resolution_y'])) {
+
+                // images and video
+
+                $width = $meta['video']['resolution_x'];
+
+                $height = $meta['video']['resolution_y'];
+
+            } elseif (!empty($meta['svg']['svg']['sections']['viewBox'])) {
+
+                // svg
+
+                $viewBox = $meta['svg']['svg']['sections']['viewBox'];
+
+                $separator = strpos($viewBox, ',') === false ? ' ' : ',';
+
+                $exploded = explode($separator, $viewBox);
+
+                if (count($exploded) === 4) {
+
+                    $width = $exploded[2];
+
+                    $height = $exploded[3];
+
+                }
+            }
+
             $media = new File([
                 'owner_type' => \Yii::$app->request->post('owner_type'),
                 'owner_id' => \Yii::$app->request->post('owner_id'),
@@ -53,10 +89,16 @@ class MediaLibraryController extends ApiController
                 'file_name' => $uploadedFile->name,
                 'mime_type' => $uploadedFile->type,
                 'file_size' => $uploadedFile->size,
-                'sort_order' => time(),
-                'width' => \Yii::$app->request->post('width'),
-                'height' => \Yii::$app->request->post('height')
+                'sort_order' => time()
             ]);
+
+            if ($width && $height) {
+
+                $media->width = (int) $width;
+
+                $media->height = (int) $height;
+
+            }
 
             $save = $media->save();
 
@@ -69,6 +111,7 @@ class MediaLibraryController extends ApiController
 
                 $this->filesystem->put($media->getStoragePath(), file_get_contents($uploadedFile->tempName), $config);
 
+                return $media;
             }
 
         } else {
@@ -82,8 +125,6 @@ class MediaLibraryController extends ApiController
             ];
 
         }
-
-        return $uploadedFile;
     }
 
     public function prepareDataProvider()

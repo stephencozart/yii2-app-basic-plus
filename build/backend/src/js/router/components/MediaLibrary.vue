@@ -118,9 +118,13 @@
                                     {{ preview.file_size | humanizeFileSize(1) }}
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col" v-if="preview.width">
                                 <div class="text-muted">
                                     Dimensions
+                                </div>
+                                <div>
+                                    W {{ preview.width }}<br>
+                                    H {{ preview.height }}
                                 </div>
                             </div>
                         </div>
@@ -261,6 +265,9 @@
                     };
 
                     this.$http.post('/admin/media-library/upload', formData, config).then((response) => {
+
+                        this.$router.push('/media-library/recent');
+
                         event.target.value = '';
                     }).catch((error) => {
                         this.uploader.files[i].error = error.response.statusText;

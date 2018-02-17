@@ -16,5 +16,5 @@ Vue.filter('humanizeDate', function(date) {
    let d = moment.utc(date);
    let now = moment.utc();
    let diffHours = d.diff(now, 'hours');
-   return (diffHours * -1) > 24 ? d.format('MMM Do, YYYY h:mm a') : d.fromNow();
+   return (diffHours * -1) > 24 ? d.local().format('MMM Do, YYYY h:mm a') : d.fromNow();
 });
