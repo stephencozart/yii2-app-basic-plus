@@ -17,9 +17,25 @@ input:invalid {
   }
 }
 .form-group {
+  &.invalid {
+    .help-block {
+      font-weight: 500;
+      font-size: .85rem;
+    }
+  }
+  &.required {
+    label {
+      &:after {
+        content: '*';
+        color: $danger;
+        margin-left: 2px;
+      }
+    }
+  }
   label {
-    text-transform: uppercase;
-    font-size: .85rem;
+    font-size: .9rem;
+    font-weight: 500;
+    margin-bottom: .25rem;
   }
 }
 .form-control:focus {
@@ -32,7 +48,7 @@ input:invalid {
   position: relative;
   display: block;
   border-radius: 2px;
-  border: 1px solid #dde6e9;
+  border: 1px solid #C8CCD4;
   background-color: #ffffff;
 
   select {
@@ -74,4 +90,24 @@ input:invalid {
     border-right: 1px solid #fff;
     pointer-events: none;
   }
+}
+.medium-editor-element {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+  border-radius: 3px;
+  &:focus {
+    outline: none;
+    border-color: #3a2458;
+    -webkit-box-shadow: 0 0 0 1px #3a2458;
+    box-shadow: 0 0 0 1px #3a2458;
+  }
+}
+.form-group {
+  .medium-editor-element {
+    min-height: 60px;
+  }
+}
+.form-control {
+  border-radius: 3px;
 }

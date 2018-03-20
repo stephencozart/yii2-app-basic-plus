@@ -29,6 +29,8 @@
             <router-link to="/"><font-awesome-icon icon="tachometer-alt"></font-awesome-icon> Dashboard </router-link>
             <router-link to="/users"><font-awesome-icon icon="users"></font-awesome-icon> Users</router-link>
             <router-link to="/media-library"><font-awesome-icon icon="film"></font-awesome-icon> Media Library </router-link>
+            <router-link to="/entries"><font-awesome-icon icon="book"></font-awesome-icon> Entries</router-link>
+            <router-link to="/entry-types"><font-awesome-icon icon="cubes"></font-awesome-icon> Entry Types </router-link>
         </div>
         <div class="sidebar-overlay" @click="$emit('toggle')">
             <button class="sidebar-close">X</button>

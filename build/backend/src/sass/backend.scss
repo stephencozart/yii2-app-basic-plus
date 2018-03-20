@@ -27,6 +27,9 @@ html {
 body {
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
+  &.lock-body {
+    overflow: hidden;
+  }
 }
 .btn-rounded {
   border-radius: 5rem;
@@ -40,7 +43,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: rgba(100,100,100,.7);
-  z-index: 2;
+  z-index: 10;
 }
 .app-wrapper {
   display: flex;

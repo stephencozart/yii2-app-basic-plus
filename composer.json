@@ -14,12 +14,13 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "yiisoft/yii2": "~2.0.13",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "richweber/yii2-recaptcha": "^1.0",
         "league/flysystem": "^1.1@dev",
-        "james-heinrich/getid3": "dev-master"
+        "james-heinrich/getid3": "dev-master",
+        "ramsey/uuid": "^3.0@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -40,7 +40,11 @@
       margin-left: auto;
     }
   }
-
+  .card {
+    +.card {
+      margin-top: 1rem;
+    }
+  }
   .card-footer {
     display: flex;
     justify-content: flex-end;
@@ -50,4 +54,11 @@
     }
   }
 
+}
+.card-divider {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+.action-column {
+  text-align: right;
 }

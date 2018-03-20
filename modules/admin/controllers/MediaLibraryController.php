@@ -175,7 +175,7 @@ class MediaLibraryController extends ApiController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => \Yii::$app->request->get('per-page', 50)
             ],
             'sort' => $sort
         ]);

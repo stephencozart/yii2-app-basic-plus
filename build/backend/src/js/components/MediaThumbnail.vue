@@ -1,17 +1,25 @@
 <template>
-    <a class="media-thumbnail" :href="url" target="_blank">
+    <a class="media-thumbnail" @click="$emit('click')" target="_blank">
         <div class="media-thumbnail-inner">
-            <div class="icon">
-                <font-awesome-icon :icon="icon" size="3x"></font-awesome-icon>
+            <div class="media-embed">
+                <img :src="url" v-if="type === 'img'" />
+                <video :src="url" v-if="type === 'video'" controls></video>
+                <audio :src="url" v-if="type === 'audio'" controls></audio>
+                <font-awesome-icon v-if="type === 'file'" icon="file" size="5x"></font-awesome-icon>
             </div>
             <div class="filename">
                 {{ file_name }}
-            </div>
+            </div>            
         </div>
+        <slot></slot>
     </a>
 </template>
 <script>
+    import MediaEmbed from './MediaEmbed.vue';
     export default {
+        components: {
+            MediaEmbed
+        },
         props: [
             'file_name',
             'mime_type',
@@ -24,6 +32,20 @@
         ],
         computed: {
             icon() {
+                return 'file';
+            },
+            type() {
+                if (this.mime_type.substring(0, 5) === 'image') {
+                    return 'img'
+                }
+                if (this.mime_type.substring(0, 5) === 'video') {
+                    return 'video'
+                }
+                if (this.mime_type.substring(0, 5) === 'audio') {
+                    return 'audio'
+                }
+                console.log(this.mime_type.substring(0, 5));
+
                 return 'file';
             }
         }

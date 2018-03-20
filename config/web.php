@@ -49,6 +49,9 @@ $config = [
             'enableAutoLogin' => true,
             'loginUrl' => '/user/login'
         ],
+        'view' => [
+            'class' => \app\local\View::class
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -82,13 +85,25 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 [
+                    'class' => \app\rules\EntryTypeUrlRule::class
+                ],
+                [
+                    'class' => \app\rules\EntryRule::class
+                ],
+                [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
                         'admin/user',
-                        'admin/media-library' => 'admin/media-library'
+                        'admin/media-library' => 'admin/media-library',
+                        'admin/entry-type',
+                        'admin/entry-type-field',
+                        'admin/entry',
                     ]
                 ],
                 //'admin/file-manager/collections' => 'admin/file-manager/collections',
+                'admin/entries/publish/<id:\d+>' => 'admin/entry/publish',
+                'admin/entries/un-publish/<id:\d+>' => 'admin/entry/un-publish',
+                'admin/entry-types/sort-fields/<id:\d+>' => 'admin/entry-type/sort-fields',
                 'admin/users/send-activation' => 'admin/user/send-activation',
                 'admin/<controller:\w+>/<id:\d+>' => 'admin/<controller>/view',
                 'admin/<controller:\w+>/<action:\w+>/<id:\d+>'=> 'admin/<controller>/<action>',

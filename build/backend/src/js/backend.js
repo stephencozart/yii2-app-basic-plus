@@ -4,6 +4,7 @@ import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 import VueSweetAlert from 'vue-sweetalert'
 import filters from './filters';
+import fields from './fields';
 import Router from './router';
 import Store from './store';
 import SideBar from './components/SideBar';
@@ -64,6 +65,21 @@ if (window.app && window.app.roles) {
 
 Vue.prototype.$http = axios;
 
+Vue.prototype.$formatChoices = function(choices) {
+    let lines = choices.split("\n");
+    let output = [];
+
+    _.each(lines, (value) => {
+        let parts = value.split(':');            
+        output.push({
+            label: parts[1] ? parts[1].trim() : parts[0].trim(),
+            value: parts[0].trim()
+        })
+    });
+
+    return output;
+}
+
 String.prototype.replaceUrlParam = function(param, value) {
     let url = this;
     let re = new RegExp("[\\?&]" + param + "=([^&#]*)", "i"), match = re.exec(url), delimiter, newString;
@@ -96,6 +112,24 @@ String.prototype.convertUrlToRelative = function() {
     return url.substring(pos);
 };
 
+String.prototype.slugify = function() {
+    let value = this;
+    value = value.replace(/^\s+|\s+$/g, ''); // trim
+    value = value.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    let from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    let to   = "aaaaaeeeeeiiiiooooouuuunc------";
+    for (let i=0, l=from.length ; i<l ; i++) {
+        value = value.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    value = value.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return value;
+};
 
 window.store = store;
 
@@ -115,6 +149,15 @@ if (document.getElementById('app')) {
         computed: {
             overlay() {
                 return this.$store.state.overlay;
+            }
+        },
+        watch: {
+            overlay(value) {            
+                if (value) {
+                    document.body.classList.add('lock-body');
+                } else {
+                    document.body.classList.remove('lock-body');
+                }
             }
         }
     }).$mount('#app');

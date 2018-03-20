@@ -24,8 +24,7 @@
                 if (this.mime_type.substring(0, 5) === 'audio') {
                     return 'audio'
                 }
-                console.log(this.mime_type.substring(0, 5));
-
+            
                 return 'file';
             }
         }

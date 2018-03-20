@@ -3,6 +3,7 @@
 namespace app\traits;
 
 
+use yii\base\ModelEvent;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -95,15 +96,21 @@ trait SoftDeletes
     {
         $this->setAttribute(static::deletedAtAttribute(), date('Y-m-d H:i:s'));
 
-        if ($this->save(false)) {
+        $event = new ModelEvent();
 
-            if ($this instanceof ActiveRecord) {
+        $this->trigger(self::EVENT_BEFORE_DELETE, $event);
 
-                $this->trigger(ActiveRecord::EVENT_AFTER_DELETE);
+        if ($event->isValid) {
+            if ($this->save(false)) {
 
+                if ($this instanceof ActiveRecord) {
+
+                    $this->trigger(ActiveRecord::EVENT_AFTER_DELETE);
+
+                }
+
+                return true;
             }
-
-            return true;
         }
 
         return false;
