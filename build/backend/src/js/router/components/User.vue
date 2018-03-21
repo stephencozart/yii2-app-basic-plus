@@ -140,13 +140,21 @@
                         });
                     }
                 });
+            },
+            loadUser() {
+                if (this.$route.params.id) {
+                    this.$http.get('/admin/users/'+this.$route.params.id).then((response) => {
+                        this.model = response.data;
+                    });
+                }
             }
         },
         mounted() {
-            if (this.$route.params.id) {
-                this.$http.get('/admin/users/'+this.$route.params.id).then((response) => {
-                    this.model = response.data;
-                });
+            this.loadUser();
+        },
+        watch: {
+            '$route'() {
+                this.loadUser();
             }
         }
     }

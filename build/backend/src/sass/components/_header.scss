@@ -16,17 +16,14 @@
   }
 
   .header-search {
-    margin-left: auto;
     display: none;
     @media(min-width: 1024px) {
       display: block;
+      min-width: 650px;
     }
 
     input {
-      border-radius: 2px;
-      border: 1px solid #cccccc;
-      padding: .5rem 1rem;
-      min-width: 350px;
+
 
       &:focus {
         outline: none;

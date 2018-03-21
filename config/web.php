@@ -32,20 +32,20 @@ $config = [
     ],
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => \yii\rbac\DbManager::class,
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'lo8CXdQkc_psMSxsCktLaiVFpUA82uiJ',
             'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
+                'application/json' => \yii\web\JsonParser::class,
             ]
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => \yii\caching\FileCache::class,
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => \app\models\User::class,
             'enableAutoLogin' => true,
             'loginUrl' => '/user/login'
         ],
@@ -63,7 +63,7 @@ $config = [
             'timeZone' => 'America/Chicago',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => \yii\swiftmailer\Mailer::class,
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
@@ -73,7 +73,7 @@ $config = [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -91,7 +91,7 @@ $config = [
                     'class' => \app\rules\EntryRule::class
                 ],
                 [
-                    'class' => 'yii\rest\UrlRule',
+                    'class' => \yii\rest\UrlRule::class,
                     'controller' => [
                         'admin/user',
                         'admin/media-library' => 'admin/media-library',
@@ -114,7 +114,7 @@ $config = [
             ],
         ],
         'recaptcha'=>[
-            'class' => 'richweber\recaptcha\ReCaptcha',
+            'class' => \richweber\recaptcha\ReCaptcha::class,
             'siteKey' => '',
             'secretKey' => '',
             'errorMessage' => 'Are you robot?',
@@ -123,7 +123,7 @@ $config = [
     'params' => $params,
     'modules'=>[
         'admin'=>[
-            'class'=>'app\modules\admin\Module'
+            'class'=>\app\modules\admin\Module::class
         ]
     ]
 ];
@@ -132,12 +132,12 @@ if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => \yii\debug\Module::class,
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => \yii\gii\Module::class,
     ];
 }
 
