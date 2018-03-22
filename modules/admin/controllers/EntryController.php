@@ -67,13 +67,7 @@ class EntryController extends ApiController {
 
             $condition = ['and', ['entry_uid' => $entry->entry_uid], ['!=', 'id', $entry->id]];
 
-            $count = Entry::updateAll(['status' => Entry::STATUS_DRAFT, 'is_master' => 0], $condition);
-
-            if ($count === 0) {
-
-                throw new Exception('Entry status update failed');
-
-            }
+            Entry::updateAll(['status' => Entry::STATUS_DRAFT, 'is_master' => 0], $condition);
 
             $entry->refresh();
 

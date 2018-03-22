@@ -13,6 +13,12 @@
                 </div>
             </div>
             <div class="component-header-alt-group">
+
+                <button @click="deleteEntry" v-if="model.id" class="btn btn-danger">
+                    <font-awesome-icon icon="trash-alt" prefix="far"></font-awesome-icon>
+                    Delete
+                </button>
+
                 <button @click="save" v-if="entryState === 'dirty'" class="btn btn-secondary">
                     <font-awesome-icon icon="save" prefix="far"></font-awesome-icon>
                     Save
@@ -123,7 +129,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div v-if="false" class="form-group">
 
                                 <flat-pickr :config="datePickerConfig" v-model="model.publish_at"></flat-pickr>
                             </div>
@@ -148,10 +154,10 @@
                 return this.model.id ? this.model.title : 'New Entry'
             },
             metaTitle() {
-                return this.model.meta_title.length > 0 ? this.model.meta_title : this.model.name;
+                return this.model.meta_title.length > 0 ? this.model.meta_title : this.model.title;
             },
             url() {
-                let parts =  [window.location.origin, this.model.handle];
+                let parts =  [window.location.origin, this.model.entry_type_handle, this.model.handle];
                 return parts.join('/');
             },
             entryState() {
@@ -240,9 +246,9 @@
                 let rule = rules.join('|');
                 return rule;
             },
-            save(status) {
+            save() {
                 let model = JSON.parse(JSON.stringify(this.model));
-                model.status = status ? status : 'draft';
+                model.status = 'draft';
                 this.$http.post('/admin/entries', model).then((response) => {
                     this.$nextTick(() => {
                         this.dirty = false;
@@ -273,6 +279,23 @@
                     this.loadModel();
                     this.$nextTick(() => {
                         this.dirty = false;
+                    });
+                });
+
+            },
+            deleteEntry() {
+                this.$swal({
+                    title: 'Are you sure?',
+                    text: "Are you absolutely sure you want to delete this?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    this.$http.delete('/admin/entries/'+this.model.id).then((response) => {
+                        this.$router.push({
+                            name: 'entries'
+                        })
                     });
                 });
 
@@ -347,5 +370,11 @@
                 }
             }
         }
+    }
+    .component-header-alt-group {
+        position: fixed;
+        top: 11px;
+        right: 2rem;
+        z-index: 10;
     }
 </style>

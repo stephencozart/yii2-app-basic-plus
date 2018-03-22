@@ -6,7 +6,16 @@
                 <div class="component-actions"></div>
             </div>
             <div class="component-header-alt-group">
-                <router-link to="/entry/new" class="btn btn-primary btn-rounded">New Entry</router-link>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        New Entry
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a v-for="type in entryTypes" @click="newEntry(type)" class="dropdown-item">
+                            {{ type.name }}
+                        </a>
+                    </div>
+                </div>
             </div>
         </header>
         <div class="component-body">
