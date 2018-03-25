@@ -13,12 +13,37 @@ class EntryController extends Controller
 {
     public function actionView($entryTypeHandle, $entryHandle)
     {
+        $revision = \Yii::$app->request->get('revision');
+
+        $perms = [
+            'view-entries',
+            'update-entries',
+            'create-entries',
+            'delete-entries'
+        ];
+
+        $canPreview = false;
+
+        foreach($perms as $perm) {
+            if (\Yii::$app->user->can($perm)) {
+                $canPreview = true;
+                break;
+            }
+        }
+
+        $condition = [
+            'entry_type_handle' => $entryTypeHandle,
+            'handle' => $entryHandle,
+            'status' => Entry::STATUS_PUBLISHED
+        ];
+
+        if ($revision && $canPreview) {
+            $condition['status'] = [Entry::STATUS_PUBLISHED, Entry::STATUS_DRAFT];
+            $condition['id'] = $revision;
+        }
+
         $entry = Entry::find()
-            ->where([
-                'entry_type_handle' => $entryTypeHandle,
-                'handle' => $entryHandle,
-                'status' => Entry::STATUS_PUBLISHED
-            ])->one();
+            ->where($condition)->one();
 
         if ($entry === null) {
 

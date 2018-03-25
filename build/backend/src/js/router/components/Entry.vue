@@ -189,7 +189,7 @@
         methods: {
             loadModel() {
                 if (this.$route.params.entryId) {
-                    this.$http.get('/admin/entry/'+this.$route.params.entryId).then((response) => {
+                    this.$http.get('/admin/entry/'+this.$route.params.entryId+'?expand=revisions').then((response) => {
                         this.model = response.data;
                         this.loadEntryType();
                     });

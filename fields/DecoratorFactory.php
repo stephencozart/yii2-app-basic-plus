@@ -9,7 +9,8 @@ use yii\base\BaseObject;
 class DecoratorFactory extends BaseObject
 {
     protected static $registry = [
-        'asset-input' => AssetInputDecorator::class
+        'asset-input' => AssetInputDecorator::class,
+        'location-input' => LocationInputDecorator::class
     ];
 
     /**

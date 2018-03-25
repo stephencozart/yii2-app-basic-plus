@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\EntryRevision;
 use app\modules\admin\ApiController;
 use app\models\Entry;
 use Ramsey\Uuid\Uuid;
@@ -106,7 +107,7 @@ class EntryController extends ApiController {
 
     public function prepareDataProvider()
     {
-        $query = Entry::find();
+        $query = EntryRevision::find();
         $query->andWhere(['is_master' => 1]);
 
         return new ActiveDataProvider([

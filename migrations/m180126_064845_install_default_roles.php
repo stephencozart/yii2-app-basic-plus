@@ -4,6 +4,19 @@ use yii\db\Migration;
 
 class m180126_064845_install_default_roles extends Migration
 {
+    protected $perms = [
+      'admin-access' => 'Allows general access to the admin',
+      'view-entries' => 'View Entries',
+      'create-entries' => 'Create Entries',
+      'update-entries' => 'Update Entries',
+      'delete-entries' => 'Delete Entries'
+    ];
+
+    /**
+     * @return bool|void
+     * @throws Exception
+     * @throws \yii\base\Exception
+     */
     public function safeUp()
     {
         $authManager = Yii::$app->authManager;
@@ -12,11 +25,17 @@ class m180126_064845_install_default_roles extends Migration
         $adminRole->description = 'Admin';
         $authManager->add($adminRole);
 
-        $adminAccessPermission = $authManager->createPermission('admin-access');
-        $adminAccessPermission->description = 'Allows general access to the admin';
-        $authManager->add($adminAccessPermission);
+        foreach($this->perms as $permName => $permDescription) {
 
-        $authManager->addChild($adminRole, $adminAccessPermission);
+            $permission = $authManager->createPermission($permName);
+
+            $permission->description = $permDescription;
+
+            $authManager->add($permission);
+
+            $authManager->addChild($adminRole, $permission);
+        }
+
     }
 
     public function safeDown()

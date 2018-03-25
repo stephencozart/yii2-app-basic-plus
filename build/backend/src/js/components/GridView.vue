@@ -21,6 +21,9 @@
                     <span v-if="column.type === 'dateTime'">
                         {{ item[column.key] | humanizeDate }}
                     </span>
+                    <component v-bind:is="column.componentName" :item="item" v-if="column.type === 'component'">
+
+                    </component>
                     <span v-if="!column.type" @click.stop="$emit('itemClick',{ key: column.key, data: item })">{{ item[column.key] }}</span>
                 </td>
             </tr>

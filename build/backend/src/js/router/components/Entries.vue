@@ -44,6 +44,9 @@
 <script>
     import GridView from '../../components/GridView'
     import EmptyStage from '../../components/EmptyStage'
+    import Vue from 'vue'
+    import EntryStatusIcon from '../../components/EntryStatusIcon'
+    Vue.component('entry-status-icon', EntryStatusIcon)
 
     export default {
         components: {
@@ -53,7 +56,7 @@
         mounted() {
             this.$http.get('/admin/entry-types').then((response) => {
                 this.entryTypes = response.data.items;
-                this.$http.get('/admin/entries').then((response) => {
+                this.$http.get('/admin/entries?expand=published').then((response) => {
                     this.items = response.data.items;
                     this.meta = response.data._meta;
                     this.links = response.data._links;
@@ -85,7 +88,9 @@
                 columns: [
                     {
                         heading: 'Status',
-                        key: 'status'
+                        key: 'status',
+                        type: 'component',
+                        componentName: 'entry-status-icon'
                     },
                     {
                         heading: 'Title',
