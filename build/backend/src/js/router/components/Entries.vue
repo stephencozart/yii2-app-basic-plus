@@ -7,7 +7,7 @@
             </div>
             <div class="component-header-alt-group">
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary btn-rounded dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         New Entry
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

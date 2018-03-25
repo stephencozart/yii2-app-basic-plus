@@ -371,10 +371,4 @@
             }
         }
     }
-    .component-header-alt-group {
-        position: fixed;
-        top: 11px;
-        right: 2rem;
-        z-index: 10;
-    }
 </style>

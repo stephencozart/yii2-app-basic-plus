@@ -2,16 +2,18 @@
   table-layout: fixed;
   thead {
     th {
-      background-color: $dark-purple;
-      color: #ffffff;
-      font-weight: 400;
+      background-color: transparent;
+      font-weight: 700;
       text-transform: uppercase;
+      font-size: .7rem;
+      border-top: none;
     }
   }
   tbody {
     td {
       background-color: #ffffff;
       vertical-align: middle;
+      font-size: .9rem;
       &.actions {
         text-align: right;
       }
