@@ -20,6 +20,8 @@ class Module extends \yii\base\Module
 
     public $layout = '@app/modules/admin/views/layouts/main';
 
+    public $googleMapsApiKey;
+
     public function init()
     {
         \Yii::$app->errorHandler->errorAction = 'admin/app/error';
@@ -43,7 +45,7 @@ class Module extends \yii\base\Module
 
         }
 
-        Event::on(User::className(), User::EVENT_AFTER_INSERT, function(Event $event) {
+        Event::on(User::class, User::EVENT_AFTER_INSERT, function(Event $event) {
 
             \Yii::$app->mailer->compose('user/activate', ['user' => $event->sender])
                 ->setFrom(\Yii::$app->params['reply_to'])
@@ -52,6 +54,10 @@ class Module extends \yii\base\Module
                 ->send();
 
         });
+
+        if ($this->googleMapsApiKey) {
+            \Yii::$app->view->registerJsFile("https://maps.googleapis.com/maps/api/js?key={$this->googleMapsApiKey}&libraries=places");
+        }
 
         parent::init();
     }

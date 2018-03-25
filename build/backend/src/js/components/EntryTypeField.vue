@@ -111,6 +111,9 @@
                     return obj.value === this.model.field_type_handle;
                 });
                 return fieldType ? fieldType : {};
+            },
+            fieldTypes() {
+                return this.$store.state.fieldTypes;
             }
         },
         mounted() {
@@ -146,47 +149,6 @@
             return {
             
                 model: m,
-                fieldTypes: {
-                    TextInput: {
-                        value: 'text-input',
-                        name: 'Text'
-                    },
-                    SelectInput: {
-                        value: 'select-input',
-                        name: 'Select',
-                        choices: true
-                    },
-                    TextAreaInput: {
-                        value: 'text-area-input',
-                        name: 'Text Area'
-                    },
-                    RichText: {
-                        value: 'rich-text',
-                        name: 'WYSIWYG Editor'
-                    },
-                    CheckboxInput: {
-                        value: 'checkbox-input',
-                        name: 'Checkbox',
-                        choices: true
-                    },
-                    RadioButtonInput: {
-                        value: 'radio-button-input',
-                        name: 'Radio Button',
-                        choices: true
-                    },
-                    BooleanInput: {
-                        value: 'boolean-input',
-                        name: 'True/False'
-                    },
-                    AssetInput: {
-                        value: 'asset-input',
-                        name: 'Asset'
-                    },
-                    GroupField: {
-                        value: 'group-field',
-                        name: 'Group Field'
-                    }
-                }
             }
         }
     }

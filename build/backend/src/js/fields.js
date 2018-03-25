@@ -9,6 +9,12 @@ import CheckboxInput from './components/fields/CheckboxInput'
 import RadioButtonInput from './components/fields/RadioButtonInput'
 import BooleanInput from './components/fields/BooleanInput'
 import AssetInput from './components/fields/AssetInput'
+import IntegerInput from './components/fields/IntegerInput'
+import DecimalInput from './components/fields/DecimalInput'
+import DateInput from './components/fields/DateInput'
+import DateTimeInput from './components/fields/DateTimeInput'
+import ColorPickerInput from './components/fields/ColorPickerInput'
+import LocationInput from './components/fields/LocationInput'
 
 Vue.component('asset-input', AssetInput)
 Vue.component('boolean-input', BooleanInput)
@@ -20,3 +26,9 @@ Vue.component('checkbox', Checkbox)
 Vue.component('select-input', SelectInput)
 Vue.component('rich-text', RichText)
 Vue.component('group-field', GroupField)
+Vue.component('integer-input', IntegerInput)
+Vue.component('decimal-input', DecimalInput)
+Vue.component('date-input', DateInput)
+Vue.component('date-time-input', DateTimeInput)
+Vue.component('color-picker-input', ColorPickerInput)
+Vue.component('location-input', LocationInput)

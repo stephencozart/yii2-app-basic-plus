@@ -1,7 +1,6 @@
 <template>
     <div :class="className">
         <label :for="id">{{ label }}</label>
-        {{ choices }}
         <div class="select">
             <select :value="value ? value : ''" @click="$emit('input', $event.target.value)" @change="$emit('input', $event.target.value)" :disabled="disabled" :id="id" :name="name" class="form-control">
                 <option value="">choose an option</option>

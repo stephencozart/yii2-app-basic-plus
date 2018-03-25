@@ -123,7 +123,8 @@ $config = [
     'params' => $params,
     'modules'=>[
         'admin'=>[
-            'class'=>\app\modules\admin\Module::class
+            'class'=>\app\modules\admin\Module::class,
+            'googleMapsApiKey' => 'AIzaSyDn6Qdx4HpxcrdPOkgGt8fULbhoadoN6nY'
         ]
     ]
 ];
